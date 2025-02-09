@@ -6,7 +6,7 @@
 #    By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/04 14:59:51 by ashahbaz          #+#    #+#              #
-#    Updated: 2025/02/07 16:27:33 by ashahbaz         ###   ########.fr        #
+#    Updated: 2025/02/09 16:41:12 by ashahbaz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,9 @@ SRCS =  main.c \
 		read_map.c \
 		utils.c \
 		utils_1.c \
-		are_textures_valid.c \
-		are_walls_surrounding.c \
+		utils_2.c \
+		map_integrity.c \
+		validate_textures.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
 

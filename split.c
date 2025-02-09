@@ -6,13 +6,13 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:49:46 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/06 18:50:14 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/09 17:02:57 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static size_t	count_words(char const *s, char c)
+size_t	count_words(char const *s, char c)
 {
 	size_t	i;
 	size_t	count;

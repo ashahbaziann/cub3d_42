@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/07 17:07:47 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:20:56 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,38 @@ typedef struct s_player
 	double		moving_spd;
 	double		rotate_spd;
 }	t_player;
-
+typedef struct s_texture
+{
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+}	t_texture;
 
 typedef struct s_game
 {
 	void		*mlx;
 	void		*mlx_win;
+	char		**file;
 	char		**map;
 	int			height;
 	int			width;
+	char		*floor;
+	char		*ceiling;
+	t_texture	*texture;
 	t_player	*player;
 } t_game;
+
+
+typedef enum
+{
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C,
+} t_direction;
 
 //error
 void	error(char *str, char *str2);
@@ -63,6 +84,12 @@ int		height(char **map);
 int		width(char **map);
 int		max_column(char **map);
 
+
+//utils_2
+char	*ft_strrchr(char *s, int c);
+char	*ft_strnstr(char *haystack, char *needle, size_t len);
+int		ft_strcmp(char *s1, char *s2);
+
 //validate_args
 int validate_args(int argc, char **argv);
 
@@ -71,10 +98,14 @@ int init_game(t_game *game, int fd);
 
 //split
 char	**split(char const *s, char c);
+size_t	count_words(char const *s, char c);
 
 //read_map
 char	**read_map(int fd);
 
-//are_walls_surrounding
-void	are_walls_surrounding(t_game *game);
+//map_integrity
+void	map_integrity(t_game *game);
 #endif
+
+//validate_textures
+void	validate_textures(t_game *game);
