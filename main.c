@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:50:42 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/09 18:25:56 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/10 20:00:58 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ int main(int argc, char **argv)
 		return (1);
 	init_game(&game, fd);
 	validate_textures(&game);
+	map_integrity(&game);
 	print_game(&game);
-	//map_integrity(&game);
 }

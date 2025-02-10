@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:26:31 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/09 18:27:02 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/10 20:02:13 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void get_texture_path(t_game *game, char **dir, char *line, t_direction t
 	map_free(arr);
 }
 
-static int textures_all_set(t_game *game)
+int textures_all_set(t_game *game)
 {
 	t_texture	*tmp;
 
@@ -60,6 +60,33 @@ static int textures_all_set(t_game *game)
 	return (1);
 }
 
+static int empty_map(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	if (game -> map)
+	{
+		while (game -> map[i])
+		{
+			if (!line_is_empty(game -> map[i]))
+				return (0);
+			i++;
+		}
+	}
+	return (1);
+}
+static void set_map(t_game *game, int i)
+{
+	if(!textures_all_set(game))
+		clean(game, NULL, "Map is not set");
+	game -> map = &game -> file[i];
+	fill_file(game -> map);
+	if(empty_map(game))
+		clean(game, NULL, "Map is not set");
+	game -> width = width(game -> map);
+	game -> height = height(game -> map);
+}
 void	validate_textures(t_game *game)
 {
 	char	**file;
@@ -71,20 +98,20 @@ void	validate_textures(t_game *game)
 	{
 		if (textures_all_set(game))
 			break ;
-		//skip_empty_lines(file, &i);
-		if (ft_strnstr(file[i], "NO", game -> width))
+		if (ft_strnstr(file[i], "NO", ft_strlen(file[i])))
 			get_texture_path(game, &game -> texture -> north, file[i], NO);
-		if (ft_strnstr(file[i], "SO", game -> width))
+		if (ft_strnstr(file[i], "SO", ft_strlen(file[i])))
 			get_texture_path(game, &game -> texture -> south, file[i], SO);
-		if (ft_strnstr(file[i], "EA", game -> width))
+		if (ft_strnstr(file[i], "EA", ft_strlen(file[i])))
 			get_texture_path(game, &game -> texture -> east, file[i], EA);
-		if (ft_strnstr(file[i], "WE", game -> width))
+		if (ft_strnstr(file[i], "WE", ft_strlen(file[i])))
 			get_texture_path(game, &game -> texture -> west, file[i], WE);
-		if (ft_strnstr(file[i], "F", game -> width))
+		if (ft_strnstr(file[i], "F", ft_strlen(file[i])))
 			get_texture_path(game, &game -> floor, file[i], F);
-		if (ft_strnstr(file[i], "C", game -> width))
+		if (ft_strnstr(file[i], "C", ft_strlen(file[i])))
 			get_texture_path(game, &game -> ceiling, file[i], C);
 		i++;
 	}
-	game -> map = &game -> file[i];
+	if (textures_all_set(game))
+		set_map(game, i);
 }

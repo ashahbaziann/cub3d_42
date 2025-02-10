@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:57:51 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/07 17:54:54 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/10 15:03:52 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,22 @@ int max_column(char **map)
 {
     int i = 0;
     int max_length = 0;
+	int j = 0;
+	int tab = 0;
 
 
     while (map[i] != NULL)
     {
-        int column_length = 0;
-        while (map[i][column_length] != '\0')
+		j = 0;
+        while (map[i][j] != '\0')
         {
-            column_length++;
+			if (map[i][j] == '\t')
+				tab += 3;
+            j++;
         }
-
-        if (column_length > max_length)
+        if (j + tab > max_length)
         {
-            max_length = column_length;
+            max_length = j + tab;
         }
 
         i++;

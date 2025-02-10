@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/09 18:20:56 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:48:34 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,14 @@ int		max_column(char **map);
 char	*ft_strrchr(char *s, int c);
 char	*ft_strnstr(char *haystack, char *needle, size_t len);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 //validate_args
 int validate_args(int argc, char **argv);
 
 //init_game
 int init_game(t_game *game, int fd);
+void fill_file(char **map);
 
 //split
 char	**split(char const *s, char c);
@@ -109,3 +111,4 @@ void	map_integrity(t_game *game);
 
 //validate_textures
 void	validate_textures(t_game *game);
+int		textures_all_set(t_game *game);

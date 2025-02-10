@@ -6,55 +6,56 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:51:27 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/09 19:21:33 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:09:30 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-// static int	ft_isdigit(int c)
-// {
-// 	if (c >= 48 && c <= 57)
-// 		return (1);
-// 	return (0);
-// }
+
 static int	if_passed_textures(char	*line)
 {
-	int	count;
+	static int	count;
 
-	count = 0;
-	if (ft_strnstr(line , "NO", 2))
+	if (ft_strncmp(line, "NO", 2) == 0)
 		count++;
-	if (ft_strnstr(line , "SO", 2))
+	else if (ft_strncmp(line, "SO", 2) == 0)
 		count++;
-	if (ft_strnstr(line , "EA", 2))
+	else if (ft_strncmp(line, "EA", 2) == 0)
 		count++;
-	if (ft_strnstr(line , "WE", 2))
+	else if (ft_strncmp(line, "WE", 2) == 0)
 		count++;
-	if (ft_strnstr(line , "F", 1))
+	else if (ft_strncmp(line, "F", 1) == 0)
 		count++;
-	if (ft_strnstr(line , "C", 1))
+	else if (ft_strncmp(line, "C", 1) == 0)
 		count++;
 	return (count);
 }
 static void	double_new_line(char *line)
 {
 	int	i;
-	int	flag;
+	static int	flag;
 
 	i = 0;
 	flag = 0;
 	if (!line)
 		return ;
-	printf("line-> %s\n",line);
 	while (line[i] && line[i + 1])
 	{
-		if (if_passed_textures(line) == 6)
+		if (if_passed_textures(line + i) == 6 && flag == 0)
+		{
+			while (line[i] && line[i] != '\n')
+				i++;
+			while (line[i] && line[i] == '\n')
+				i++;
 			flag = 1;
+		}
 		if (line[i] == '\n' && line[i + 1] == '\n' && flag == 1)
-			error("Validassdsdtion failed!\n", line);
+			error("Validation failed!\n", line);
+		if (line[i] != '\0')
 		i++;
 	}
 }
+
 static char	*check_line(char **new_line, char **line)
 {
 	*new_line = another_strtrim((*line), "\n");
@@ -114,9 +115,6 @@ char	**read_map(int fd)
 		free_line(line, new);
 		clean(NULL, map, "Validation failed!\n");
 	}
-	// int i = 0;
-	// while (map[i])
-	// 	printf(">>%s<<\n",map[i++]);
 	free_line(new, NULL);
 	return (map);
 }

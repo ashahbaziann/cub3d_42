@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:31:53 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/09 18:20:49 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/10 19:56:15 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	tab_count(char *str)
 	return (count);
 }
 
-static void fill_file(char **map)
+void fill_file(char **map)
 {
 	int		i;
 	char	*tmp;
@@ -101,9 +101,9 @@ int init_game(t_game *game, int fd)
 	// int i = 0;
 	// while (game -> map[i])
 	// 	printf("[%s]\n",game -> map[i++]);
-	fill_file(game -> file);
-	game -> width = width(game -> file);
-	game -> height = height(game -> file);
+	//fill_file(game -> file);
+	game -> width = 0;
+	game -> height = 0;
 	game -> map = NULL;
 	game -> floor = NULL;
 	game -> ceiling = NULL;
