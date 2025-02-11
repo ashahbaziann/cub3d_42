@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/10 19:48:34 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:22:26 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 #include <fcntl.h>
 #include <mlx.h>
 # include "gnl/get_next_line.h"
+
+
+# define SPRITE 50
 
 typedef struct s_player
 {
@@ -48,6 +51,8 @@ typedef struct s_game
 	int			width;
 	char		*floor;
 	char		*ceiling;
+	int			floor_colour;
+	int			ceiling_colour;
 	t_texture	*texture;
 	t_player	*player;
 } t_game;
@@ -90,6 +95,12 @@ char	*ft_strrchr(char *s, int c);
 char	*ft_strnstr(char *haystack, char *needle, size_t len);
 int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_atoi(const char *str);
+
+
+//utils_3
+char	*get_direction(t_direction type);
+int		textures_all_set(t_game *game);
 
 //validate_args
 int validate_args(int argc, char **argv);
@@ -107,8 +118,14 @@ char	**read_map(int fd);
 
 //map_integrity
 void	map_integrity(t_game *game);
-#endif
 
 //validate_textures
 void	validate_textures(t_game *game);
-int		textures_all_set(t_game *game);
+
+//get_colour
+void get_colour(t_game *game, char **dir, t_direction type);
+
+//init_window
+void	init_window(t_game *game);
+
+#endif

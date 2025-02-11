@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:23:24 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/10 19:59:44 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:00:57 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ static void check_space_interval(t_game *game, int i, int j)
 		clean(game, NULL, "Missing walls!\n");
 }
 
+
+static int is_valid_char(char c)
+{
+	if (c == '1' || c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == ' ')
+		return (1);
+	return (0);
+}
+
 void map_integrity(t_game *game)
 {
 	int	i;
@@ -39,6 +47,11 @@ void map_integrity(t_game *game)
 		j = 0;
 		while (game -> map[i][j])
 		{
+			if (!is_valid_char(game -> map[i][j]))
+			{
+				printf("char is [%c]\n", game -> map[i][j]);
+				clean(game, NULL, "Invalid character");
+			}
 			if (game -> map[i][j] == '0')
 			{
 				if (i == 0 || j == 0 || i == game -> height - 1 || j == game -> width - 1)

@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:31:53 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/10 19:56:15 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:28:13 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,11 @@ void ft_strcpy(char *dest, char *src, int len)
 			}
 			i++;
 		}
-		dest[j] = src[i];
-		i++;
-		j++;
+		dest[j++] = src[i++];
 		len--;
 	}
-	while (len > 0)
-	{
-		dest[j] = ' ';
-		j++;
-		len--;
-	}
+	while (len-- > 0)
+		dest[j++] = ' ';
 	dest[j] = '\0';
 }
 
@@ -107,6 +101,8 @@ int init_game(t_game *game, int fd)
 	game -> map = NULL;
 	game -> floor = NULL;
 	game -> ceiling = NULL;
+	game -> floor_colour = 0;
+	game -> ceiling_colour = 0;
 	game -> texture = malloc(sizeof(t_texture));
 	if (!game -> texture)
 		clean(game, NULL, "Allocation failed\n");

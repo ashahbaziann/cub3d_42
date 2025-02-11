@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 16:01:30 by ashahbaz          #+#    #+#             */
-/*   Updated: 2024/03/19 14:02:56 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:34:09 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*read_file(int fd, char *buffer)
 		buffer = ft_strjoin(buffer, temp);
 	}
 	free(temp);
+	temp = NULL;
 	return (buffer);
 }
 
