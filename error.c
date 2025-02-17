@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:52:17 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/07 14:58:03 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:58:33 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,16 @@ void	error(char *str, char *str2)
 
 void	free_line(char	*line1, char *line2)
 {
-	free (line1);
-	free (line2);
-	line1 = NULL;
-	line2 = NULL;
+	if (line1)
+	{
+		free (line1);
+		line1 = NULL;
+	}
+	if (line2)
+	{
+		free (line2);
+		line2 = NULL;
+	}
 }
 void	map_free(char **map)
 {
@@ -59,16 +65,16 @@ void	game_free(t_game *game)
 		game = NULL;
 	}
 }
-void	clean(t_game *game, char **copy, char *str)
+void	clean(t_game *game, char **map, char *str)
 {
-	//printf("shit\n");
-	if (copy)
-		map_free(copy);
-	//printf("shit1\n");
+	if (map)
+		map_free(map);
+	free_line(game -> floor, game -> ceiling);
+	free_line(game -> texture -> north, game -> texture -> south);
+	free_line(game -> texture -> west, game -> texture -> east);
 	// if (game)
 	// 	game_free(game);
-	//printf("shit3\n");
-	copy = NULL;
+	map = NULL;
 	game = NULL;
 	error(str, NULL);
 }
