@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:23:24 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/11 16:00:57 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:40:54 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,21 @@ static int is_player(char c)
 
 static void set_player(t_game *game, int i, int j)
 {
-	if (game -> player -> count > 1)
-		clean(game, NULL, "More than one character\n");
-	if (is_player(game -> map[i][j]))//count handle missing
+	if (game -> player.count > 1)
+		clean(game, NULL, "More than one player!\n");
+	if (is_player(game -> map[i][j]))
 	{
-		game -> player -> count++;
+		game -> player.count++;
 		if (game -> map[i][j] == 'N')
-			game -> angle = M_PI / 2;
+			game -> player.angle = M_PI / 2;
 		else if (game -> map[i][j] == 'S')
-			game -> angle = 3 * M_PI / 2;
+			game -> player.angle = 3 * M_PI / 2;
 		else if (game -> map[i][j] == 'W')
-			game -> angle = M_PI;
+			game -> player.angle = M_PI;
 		else if (game -> map[i][j] == 'E')
-			game -> angle = 0;
-		game -> player -> x = i * SPRITE + SPRITE / 2;
-		game -> player -> y = j * SPRITE + SPRITE / 2;
+			game -> player.angle = 0;
+		game -> player.x = i * SPRITE + SPRITE / 2;
+		game -> player.y = j * SPRITE + SPRITE / 2;
 	}
 }
 void map_integrity(t_game *game)

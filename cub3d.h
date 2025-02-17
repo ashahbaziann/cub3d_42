@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/11 19:22:26 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:38:11 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <mlx.h>
+#include <math.h>
 # include "gnl/get_next_line.h"
 
 
@@ -26,12 +27,8 @@ typedef struct s_player
 {
 	double		x;
 	double		y;
-	double		dir_x;
-	double		dir_y;
-	double		plane_x;
-	double 		plane_y;
-	double		moving_spd;
-	double		rotate_spd;
+	int			count;
+	double		angle;
 }	t_player;
 typedef struct s_texture
 {
@@ -54,7 +51,7 @@ typedef struct s_game
 	int			floor_colour;
 	int			ceiling_colour;
 	t_texture	*texture;
-	t_player	*player;
+	t_player	player;
 } t_game;
 
 

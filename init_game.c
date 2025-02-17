@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:31:53 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/11 19:28:13 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:39:27 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,15 @@ static void init_textures(t_game *game)
 	game -> texture -> west =	NULL;
 }
 
+
+static void init_player(t_game *game)
+{
+	game -> player.x = 0;
+	game -> player.y = 0;
+	game -> player.count = 0;
+	game -> player.angle = 0;
+}
+
 int init_game(t_game *game, int fd)
 {
 	game -> file = read_map(fd);
@@ -107,5 +116,6 @@ int init_game(t_game *game, int fd)
 	if (!game -> texture)
 		clean(game, NULL, "Allocation failed\n");
 	init_textures(game);
+	init_player(game);
 	return (0);
 }
