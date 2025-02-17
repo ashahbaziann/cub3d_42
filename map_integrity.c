@@ -34,7 +34,33 @@ static int is_valid_char(char c)
 		return (1);
 	return (0);
 }
+static int is_player(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (1);
+	return (0);
+}
 
+
+static void set_player(t_game *game, int i, int j)
+{
+	if (game -> player -> count > 1)
+		clean(game, NULL, "More than one character\n");
+	if (is_player(game -> map[i][j]))//count handle missing
+	{
+		game -> player -> count++;
+		if (game -> map[i][j] == 'N')
+			game -> angle = M_PI / 2;
+		else if (game -> map[i][j] == 'S')
+			game -> angle = 3 * M_PI / 2;
+		else if (game -> map[i][j] == 'W')
+			game -> angle = M_PI;
+		else if (game -> map[i][j] == 'E')
+			game -> angle = 0;
+		game -> player -> x = i * SPRITE + SPRITE / 2;
+		game -> player -> y = j * SPRITE + SPRITE / 2;
+	}
+}
 void map_integrity(t_game *game)
 {
 	int	i;
@@ -48,10 +74,8 @@ void map_integrity(t_game *game)
 		while (game -> map[i][j])
 		{
 			if (!is_valid_char(game -> map[i][j]))
-			{
-				printf("char is [%c]\n", game -> map[i][j]);
 				clean(game, NULL, "Invalid character");
-			}
+			set_player(game, i, j);
 			if (game -> map[i][j] == '0')
 			{
 				if (i == 0 || j == 0 || i == game -> height - 1 || j == game -> width - 1)
