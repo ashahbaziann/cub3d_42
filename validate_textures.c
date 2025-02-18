@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:26:31 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/11 19:22:37 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:54:04 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void get_value(t_game *game, char **dir, char *line, t_direction type)
 	arr = split(line, ' ');
 	if (arr[0] && !ft_strcmp(arr[0], get_direction(type)))
 		*dir = ft_strdup(arr[1]);
-	else if (arr[1])
-		*dir = ft_strdup(arr[0]);
+	else
+		clean(game, NULL, "Invalid arguments for textures\n");
 	map_free(arr);
 	if (type == F || type == C)
 		get_colour(game, dir, type);
@@ -71,6 +71,8 @@ static void set_map(t_game *game, int i)
 		clean(game, NULL, "Map is not set");
 	game -> width = width(game -> map);
 	game -> height = height(game -> map);
+	game -> img.width = game -> width;
+	game -> img.height = game -> height;
 }
 void	validate_textures(t_game *game)
 {
@@ -84,13 +86,13 @@ void	validate_textures(t_game *game)
 		if (textures_all_set(game))
 			break ;
 		if (ft_strnstr(file[i], "NO", ft_strlen(file[i])))
-			get_value(game, &game -> texture -> north, file[i], NO);
+			get_value(game, &game -> north.path, file[i], NO);
 		if (ft_strnstr(file[i], "SO", ft_strlen(file[i])))
-			get_value(game, &game -> texture -> south, file[i], SO);
+			get_value(game, &game -> south.path, file[i], SO);
 		if (ft_strnstr(file[i], "EA", ft_strlen(file[i])))
-			get_value(game, &game -> texture -> east, file[i], EA);
+			get_value(game, &game -> east.path, file[i], EA);
 		if (ft_strnstr(file[i], "WE", ft_strlen(file[i])))
-			get_value(game, &game -> texture -> west, file[i], WE);
+			get_value(game, &game -> west.path, file[i], WE);
 		if (ft_strnstr(file[i], "F", ft_strlen(file[i])))
 			get_value(game, &game -> floor, file[i], F);
 		if (ft_strnstr(file[i], "C", ft_strlen(file[i])))

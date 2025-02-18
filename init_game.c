@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:31:53 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/17 13:39:27 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:25:20 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ void fill_file(char **map)
 
 static void init_textures(t_game *game)
 {
-	game -> texture -> north =	NULL;
-	game -> texture -> south =	NULL;
-	game -> texture -> east =	NULL;
-	game -> texture -> west =	NULL;
+	game -> north.path = NULL;
+	game -> south.path = NULL;
+	game -> east.path = NULL;
+	game -> west.path =	NULL;
 }
 
 
@@ -101,10 +101,6 @@ static void init_player(t_game *game)
 int init_game(t_game *game, int fd)
 {
 	game -> file = read_map(fd);
-	// int i = 0;
-	// while (game -> map[i])
-	// 	printf("[%s]\n",game -> map[i++]);
-	//fill_file(game -> file);
 	game -> width = 0;
 	game -> height = 0;
 	game -> map = NULL;
@@ -112,10 +108,8 @@ int init_game(t_game *game, int fd)
 	game -> ceiling = NULL;
 	game -> floor_colour = 0;
 	game -> ceiling_colour = 0;
-	game -> texture = malloc(sizeof(t_texture));
-	if (!game -> texture)
-		clean(game, NULL, "Allocation failed\n");
 	init_textures(game);
 	init_player(game);
+	//init_image(game);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:52:17 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/15 17:58:33 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:59:52 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	clean(t_game *game, char **map, char *str)
 	if (map)
 		map_free(map);
 	free_line(game -> floor, game -> ceiling);
-	free_line(game -> texture -> north, game -> texture -> south);
-	free_line(game -> texture -> west, game -> texture -> east);
+	free_line(game -> north.path , game -> south.path);
+	free_line(game -> west.path , game -> east.path);
 	// if (game)
 	// 	game_free(game);
 	map = NULL;

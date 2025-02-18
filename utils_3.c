@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:49:43 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/11 19:21:58 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:58:32 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ char	*get_direction(t_direction type)
 }
 int textures_all_set(t_game *game)
 {
-	t_texture	*tmp;
+	//t_texture	*tmp;
 
-	tmp = game -> texture;
-	if (!tmp -> west || !tmp -> east || !tmp -> north || !tmp -> south)
+	//tmp = game -> texture;
+	if (!game -> west.path || !game -> east.path  || !game -> north.path  || !game -> south.path )
 		return (0);
 	if (!game -> floor || !game -> ceiling)
 		return (0);

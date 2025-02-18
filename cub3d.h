@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/17 13:38:11 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/18 14:40:26 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,24 @@ typedef struct s_player
 	int			count;
 	double		angle;
 }	t_player;
+
 typedef struct s_texture
 {
-	char	*north;
-	char	*south;
-	char	*west;
-	char	*east;
+	char	*path;
+	double	x;
+	double	y;
 }	t_texture;
+
+typedef struct s_image
+{
+	void	*img;
+	char	*address;
+	int		bpp;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}	t_image;
 
 typedef struct s_game
 {
@@ -50,7 +61,11 @@ typedef struct s_game
 	char		*ceiling;
 	int			floor_colour;
 	int			ceiling_colour;
-	t_texture	*texture;
+	t_texture	north;
+	t_texture	south;
+	t_texture	west;
+	t_texture	east;
+	t_image		img;
 	t_player	player;
 } t_game;
 
