@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/18 14:40:26 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:38:48 by gmelikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 
 # define SPRITE 50
+# define FOV	60
+#define NUM_RAYS 120
 
 typedef struct s_player
 {
@@ -61,6 +63,7 @@ typedef struct s_game
 	char		*ceiling;
 	int			floor_colour;
 	int			ceiling_colour;
+	//double ray_angle[NUM_RAYS];
 	t_texture	north;
 	t_texture	south;
 	t_texture	west;
@@ -139,5 +142,12 @@ void get_colour(t_game *game, char **dir, t_direction type);
 
 //init_window
 void	init_window(t_game *game);
+
+//////////////////////////////////////////////////////
+
+//raycasting
+void cast_ray(t_game *player);
+
+void my_mlx_pixel_put(t_image *img, int x, int y, int color);
 
 #endif

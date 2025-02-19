@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:31:53 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/17 18:25:20 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:41:24 by gmelikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ static void init_player(t_game *game)
 
 int init_game(t_game *game, int fd)
 {
+	int i;
+
+	i = 0;
 	game -> file = read_map(fd);
 	game -> width = 0;
 	game -> height = 0;
@@ -108,6 +111,11 @@ int init_game(t_game *game, int fd)
 	game -> ceiling = NULL;
 	game -> floor_colour = 0;
 	game -> ceiling_colour = 0;
+	// while (game->ray_angle[i] < NUM_RAYS)
+	// {
+	// 	game->ray_angle[i] = 0;
+	// 	i++;
+	// }
 	init_textures(game);
 	init_player(game);
 	//init_image(game);

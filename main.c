@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:50:42 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/18 16:38:40 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:17:33 by gmelikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void print_game(t_game *game)
 			printf("[%s]\n", game -> map[i++]);
 	}
 }
+
+
 void my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
 	//printf("first line %d\n",img -> width);
@@ -49,6 +51,7 @@ void my_mlx_pixel_put(t_image *img, int x, int y, int color)
 }
 
 
+
 // void my_mlx_pixel_put(t_image *img, int x, int y, int color)
 // {
 //     char    *dst;
@@ -56,6 +59,9 @@ void my_mlx_pixel_put(t_image *img, int x, int y, int color)
 //     dst = img->address + (y * img->line_length + x * (img->bpp / 8));
 //     *(unsigned int*)dst = color;
 // }
+
+
+
 static void color_ceiling_and_floor(t_game *game)
 {
 	int	i;
@@ -84,6 +90,7 @@ static void color_ceiling_and_floor(t_game *game)
 		i++;
 	}
 }
+
 	static void	init_image(t_game *game)
 {
 
@@ -95,7 +102,6 @@ static void color_ceiling_and_floor(t_game *game)
 	printf("Game width: %d, height: %d\n", game->width, game->height);
 
 }
-
 
 int main(int argc, char **argv)
 {
@@ -110,6 +116,7 @@ int main(int argc, char **argv)
 	init_window(&game);
 	init_image(&game);
 	color_ceiling_and_floor(&game);
+	cast_ray(&game);
 	mlx_put_image_to_window(game.mlx, game.mlx_win, game.img.img, 0, 0);
 	mlx_loop(game.mlx);
 	print_game(&game);

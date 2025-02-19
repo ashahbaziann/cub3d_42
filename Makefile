@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+         #
+#    By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/04 14:59:51 by ashahbaz          #+#    #+#              #
-#    Updated: 2025/02/11 19:23:01 by ashahbaz         ###   ########.fr        #
+#    Updated: 2025/02/19 17:44:12 by gmelikya         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3d
 
 RM = rm -f
 
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -I. #-fsanitize=address
 
 SRCS =  main.c \
 		error.c \
@@ -32,15 +32,17 @@ SRCS =  main.c \
 		validate_textures.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
+		raycasting/raycasting.c
 
+HEADERS = cub3d.h
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) cub3d.h Makefile
+$(NAME): $(OBJS) $(HEADERS) Makefile
 	cc $(CFLAGS) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-%.o:%.c
+%.o:%.c Makefile $(HEADERS)
 	cc $(CFLAGS) -c $< -o $@
 
 clean:

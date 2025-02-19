@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_integrity.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:23:24 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/17 13:40:54 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:14:58 by gmelikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,12 @@ static void set_player(t_game *game, int i, int j)
 			game -> player.angle = M_PI;
 		else if (game -> map[i][j] == 'E')
 			game -> player.angle = 0;
-		game -> player.x = i * SPRITE + SPRITE / 2;
-		game -> player.y = j * SPRITE + SPRITE / 2;
+		game -> player.x = j * SPRITE + SPRITE / 2;
+		game -> player.y = i * SPRITE + SPRITE / 2;
+		// printf("!!!!!!!!!!!!!!!\n");
+		// printf("game -> player.x == _%f_\n", game -> player.x);
+		// printf("game -> player.y == _%f_\n", game -> player.y);
+		// printf("!!!!!!!!!!!!!!!");
 	}
 }
 void map_integrity(t_game *game)
