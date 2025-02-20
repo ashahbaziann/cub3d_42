@@ -6,7 +6,7 @@
 /*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:23:24 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/19 18:14:58 by gmelikya         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:10:42 by gmelikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ static void set_player(t_game *game, int i, int j)
 	if (is_player(game -> map[i][j]))
 	{
 		game -> player.count++;
-		if (game -> map[i][j] == 'N')
-			game -> player.angle = M_PI / 2;
-		else if (game -> map[i][j] == 'S')
+		if (game -> map[i][j] == 'N') //sever
 			game -> player.angle = 3 * M_PI / 2;
+		else if (game -> map[i][j] == 'S') //ug
+			game -> player.angle = M_PI / 2;
 		else if (game -> map[i][j] == 'W')
-			game -> player.angle = M_PI;
-		else if (game -> map[i][j] == 'E')
 			game -> player.angle = 0;
+		else if (game -> map[i][j] == 'E')
+			game -> player.angle = M_PI;
 		game -> player.x = j * SPRITE + SPRITE / 2;
 		game -> player.y = i * SPRITE + SPRITE / 2;
 		// printf("!!!!!!!!!!!!!!!\n");

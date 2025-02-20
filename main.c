@@ -6,7 +6,7 @@
 /*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:50:42 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/19 15:17:33 by gmelikya         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:15:08 by gmelikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ void my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	// 	y -= img->height;
 	// while (x > img -> width)
 	// 	x -= img -> width;
+	// printf("!!!!!!!\n");
+	// printf("x == _%d_\n", x);
+	// printf("y == _%d_\n", y);
+	// printf("img->width == _%d_\n", img->width);
+	// printf("img->height == _%d_\n", img->height);
     if (x < 0 || y < 0 || x >= img->width || y >= img->height)
     {
         //printf("Skipping pixel (%d, %d) - Out of bounds\n", x, y);
@@ -99,7 +104,7 @@ static void color_ceiling_and_floor(t_game *game)
 	game -> img.width = game -> width * SPRITE;
 	game -> img.height = game -> height * SPRITE;
 	printf("Image width: %d, height: %d\n", game->img.width, game->img.height);
-	printf("Game width: %d, height: %d\n", game->width, game->height);
+	printf("Game width: %d, height: %d\n", game -> width * SPRITE, game -> height * SPRITE);
 
 }
 

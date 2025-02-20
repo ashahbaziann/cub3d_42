@@ -6,7 +6,7 @@
 #    By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/04 14:59:51 by ashahbaz          #+#    #+#              #
-#    Updated: 2025/02/19 17:44:12 by gmelikya         ###   ########.fr        #
+#    Updated: 2025/02/20 13:55:16 by gmelikya         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3d
 
 RM = rm -f
 
-CFLAGS = -Wall -Werror -Wextra -g3 -I. #-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -I.  -Imlx#-fsanitize=address
 
 SRCS =  main.c \
 		error.c \
@@ -34,12 +34,12 @@ SRCS =  main.c \
 		gnl/get_next_line_utils.c \
 		raycasting/raycasting.c
 
-HEADERS = cub3d.h
+
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(HEADERS) Makefile
+$(NAME): $(OBJS)  Makefile
 	cc $(CFLAGS) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 %.o:%.c Makefile $(HEADERS)

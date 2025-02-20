@@ -6,7 +6,7 @@
 /*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/19 17:38:48 by gmelikya         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:39:18 by gmelikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define SPRITE 50
 # define FOV	60
 #define NUM_RAYS 120
+#define S_W 1600
+#define S_H 1000
 
 typedef struct s_player
 {
