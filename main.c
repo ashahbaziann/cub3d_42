@@ -74,7 +74,7 @@ static void color_ceiling_and_floor(t_game *game)
 
 	i = 0;
 	j = 0;
-	while (i < game -> img.height / 2)
+	while (i < game -> img.height)
 	{
 		j = 0;
 		while (j < game ->img.width)
@@ -84,28 +84,47 @@ static void color_ceiling_and_floor(t_game *game)
 		}
 		i++;
 	}
-	while (i < game -> img.height)
-	{
-		j = 0;
-		while (j < game ->img.width)
-		{
-			my_mlx_pixel_put(&game -> img, j, i, game -> floor_colour);
-			j++;
-		}
-		i++;
-	}
+	// while (i < game -> img.height)
+	// {
+	// 	j = 0;
+	// 	while (j < game ->img.width)
+	// 	{
+	// 		my_mlx_pixel_put(&game -> img, j, i, game -> floor_colour);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
 }
 
 	static void	init_image(t_game *game)
 {
 
-	game -> img.img = mlx_new_image(game -> mlx, game -> width * SPRITE, game -> height * SPRITE);
+	game -> img.img = mlx_new_image(game -> mlx, S_W, S_H);
 	game -> img.address = mlx_get_data_addr(game -> img.img, &game -> img.bpp, &game -> img.line_length, &game -> img.endian);
-	game -> img.width = game -> width * SPRITE;
-	game -> img.height = game -> height * SPRITE;
+	game -> img.width = S_W;
+	game -> img.height = S_H;
 	printf("Image width: %d, height: %d\n", game->img.width, game->img.height);
-	printf("Game width: %d, height: %d\n", game -> width * SPRITE, game -> height * SPRITE);
+	printf("Game width: %d, height: %d\n", S_W, S_H);
 
+}
+
+void draw_player(t_game *game, int x, int y, int size, int color)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while(i < size)
+	{
+		j = 0;
+		while (j < size)
+		{
+            my_mlx_pixel_put(&game->img, x + j, y + i, color);
+			j++;
+		}
+		i++;
+	}
 }
 
 int main(int argc, char **argv)
@@ -121,8 +140,10 @@ int main(int argc, char **argv)
 	init_window(&game);
 	init_image(&game);
 	color_ceiling_and_floor(&game);
-	cast_ray(&game);
+	draw_player(&game, game.player.x - SPRITE / 2, game.player.y - SPRITE / 2, SPRITE, 16777261);
+	//cast_ray(&game);
 	mlx_put_image_to_window(game.mlx, game.mlx_win, game.img.img, 0, 0);
+	mlx_hook(game.mlx_win, 2, 0, handle_movement, &game);
 	mlx_loop(game.mlx);
 	print_game(&game);
 }

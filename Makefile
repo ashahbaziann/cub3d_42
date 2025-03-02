@@ -32,6 +32,7 @@ SRCS =  main.c \
 		validate_textures.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
+		handle_movement.c \
 		raycasting/raycasting.c
 
 

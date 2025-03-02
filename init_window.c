@@ -17,8 +17,8 @@ void	init_window(t_game *game)
 	game -> mlx = mlx_init();
 	if (!game -> mlx)
 		clean(game, NULL, "Couldn't create window!\n");
-	game -> mlx_win = mlx_new_window(game -> mlx, game -> width * SPRITE,
-			game -> height * SPRITE, "so_long");
+	game -> mlx_win = mlx_new_window(game -> mlx, S_W,
+			S_H, "so_long");
 	if (!game -> mlx_win)
 		clean(game, NULL, "Couldn't create window!\n");
 }

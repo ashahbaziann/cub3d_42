@@ -21,11 +21,16 @@
 # include "gnl/get_next_line.h"
 
 
-# define SPRITE 50
+# define SPRITE 32
 # define FOV	60
-#define NUM_RAYS 120
-#define S_W 1600
-#define S_H 1000
+# define NUM_RAYS 120
+# define S_W 1600
+# define S_H 1000
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+# define EXIT 53
 
 typedef struct s_player
 {
@@ -85,6 +90,9 @@ typedef enum
 	C,
 } t_direction;
 
+
+//handle_movement
+int	handle_movement(int keycode, t_game *game);
 //error
 void	error(char *str, char *str2);
 void	free_line(char	*line1, char *line2);
@@ -148,8 +156,8 @@ void	init_window(t_game *game);
 //////////////////////////////////////////////////////
 
 //raycasting
-void cast_ray(t_game *player);
-
+//void cast_ray(t_game *player);
+void draw_player(t_game *game, int x, int y, int size, int color);
 void my_mlx_pixel_put(t_image *img, int x, int y, int color);
 
 #endif
