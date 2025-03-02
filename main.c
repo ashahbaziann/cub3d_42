@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:50:42 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/20 18:15:08 by gmelikya         ###   ########.fr       */
+/*   Updated: 2025/03/02 20:05:28 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,68 +33,45 @@ static void print_game(t_game *game)
 
 void my_mlx_pixel_put(t_image *img, int x, int y, int color)
 {
-	//printf("first line %d\n",img -> width);
-	// while (y > img->height)
-	// 	y -= img->height;
-	// while (x > img -> width)
-	// 	x -= img -> width;
-	// printf("!!!!!!!\n");
-	// printf("x == _%d_\n", x);
-	// printf("y == _%d_\n", y);
-	// printf("img->width == _%d_\n", img->width);
-	// printf("img->height == _%d_\n", img->height);
-    if (x < 0 || y < 0 || x >= img->width || y >= img->height)
-    {
-        //printf("Skipping pixel (%d, %d) - Out of bounds\n", x, y);
-        return;  // Prevent writing outside the image buffer
-    }
+    // if (x < 0 || y < 0 || x >= img->width || y >= img->height)
+    // {
+    //     return;
+    // }
 
     char *dst = img->address + (y * img->line_length + x * (img->bpp / 8));
     *(unsigned int *)dst = color;
-
-    //printf("Placing pixel at (%d, %d) with color %d\n", x, y, color);
 }
 
 
 
-// void my_mlx_pixel_put(t_image *img, int x, int y, int color)
+// static void color_ceiling_and_floor(t_game *game)
 // {
-//     char    *dst;
+// 	int	i;
+// 	int	j;
 
-//     dst = img->address + (y * img->line_length + x * (img->bpp / 8));
-//     *(unsigned int*)dst = color;
+// 	i = 0;
+// 	j = 0;
+// 	while (i < game -> img.height)
+// 	{
+// 		j = 0;
+// 		while (j < game ->img.width)
+// 		{
+// 			my_mlx_pixel_put(&game->img, j, i, game -> ceiling_colour);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	// while (i < game -> img.height)
+// 	// {
+// 	// 	j = 0;
+// 	// 	while (j < game ->img.width)
+// 	// 	{
+// 	// 		my_mlx_pixel_put(&game -> img, j, i, game -> floor_colour);
+// 	// 		j++;
+// 	// 	}
+// 	// 	i++;
+// 	// }
 // }
-
-
-
-static void color_ceiling_and_floor(t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < game -> img.height)
-	{
-		j = 0;
-		while (j < game ->img.width)
-		{
-			my_mlx_pixel_put(&game->img, j, i, game -> ceiling_colour);
-			j++;
-		}
-		i++;
-	}
-	// while (i < game -> img.height)
-	// {
-	// 	j = 0;
-	// 	while (j < game ->img.width)
-	// 	{
-	// 		my_mlx_pixel_put(&game -> img, j, i, game -> floor_colour);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-}
 
 	static void	init_image(t_game *game)
 {
@@ -106,6 +83,26 @@ static void color_ceiling_and_floor(t_game *game)
 	printf("Image width: %d, height: %d\n", game->img.width, game->img.height);
 	printf("Game width: %d, height: %d\n", S_W, S_H);
 
+}
+
+void put_background(t_game *game, int color)
+{
+    int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+    int *pixels = (int *)game->img.address;
+	while(i < S_H)
+	{
+		j = 0;
+		while (j < S_W)
+		{
+            pixels[i * S_W + j] = color;
+			j++;
+		}
+		i++;
+	}
 }
 
 void draw_player(t_game *game, int x, int y, int size, int color)
@@ -127,6 +124,28 @@ void draw_player(t_game *game, int x, int y, int size, int color)
 	}
 }
 
+// void draw_map(t_game *game)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	j = 0;
+// 	(void)game;
+// 	while (i < game->height)
+// 	{
+// 		j = 0;
+// 		while (j < game -> width)
+// 		{
+// 			printf("tf\n");
+// 			if (game -> map[i][j] == '1')
+// 				my_mlx_pixel_put(&game->img, j, i, 0);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
+
 int main(int argc, char **argv)
 {
 	t_game	game;
@@ -139,7 +158,9 @@ int main(int argc, char **argv)
 	map_integrity(&game);
 	init_window(&game);
 	init_image(&game);
-	color_ceiling_and_floor(&game);
+	put_background(&game, game.ceiling_colour);
+	//draw_map(&game);
+	//color_ceiling_and_floor(&game);
 	draw_player(&game, game.player.x - SPRITE / 2, game.player.y - SPRITE / 2, SPRITE, 16777261);
 	//cast_ray(&game);
 	mlx_put_image_to_window(game.mlx, game.mlx_win, game.img.img, 0, 0);
