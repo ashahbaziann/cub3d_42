@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+         #
+#    By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/04 14:59:51 by ashahbaz          #+#    #+#              #
-#    Updated: 2025/02/20 13:55:16 by gmelikya         ###   ########.fr        #
+#    Updated: 2025/03/03 13:10:48 by ashahbaz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3d
 
 RM = rm -f
 
-CFLAGS = -Wall -Werror -Wextra -g3 -I.  -Imlx#-fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -I.  -Imlx -g3 -fsanitize=address
 
 SRCS =  main.c \
 		error.c \

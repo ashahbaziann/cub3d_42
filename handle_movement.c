@@ -1,25 +1,23 @@
 # include "cub3d.h"
-// static void	clear_current_position(t_game *game)
-// {
-// 	game -> map[(int)((game ->player.x) - SPRITE/2)/SPRITE ][(int)((game ->player.y) - SPRITE/2)/SPRITE ] = '0';
-// 	draw_player(game, game->player.x- SPRITE / 2, game->player.y- SPRITE / 2, SPRITE,166661);
-// }
+static void	clear_current_position(t_game *game)
+{
+	int	x;
+	int	y;
 
-
+	x = (int)(game->player.x / SPRITE);
+	y = (int)(game->player.y / SPRITE);
+	game -> map[y][x] = '0';
+	draw_square(game, game->player.x- SPRITE / 2, game->player.y- SPRITE / 2, SPRITE - 1, 16777215);
+}
 
 static void move_player(t_game *game, int dir_x, int dir_y)
 {
-	// if (game -> map[(int)(((game ->player.y) - SPRITE/2)/SPRITE  + dir_y)][(int)(((game ->player.x) - SPRITE/2)/SPRITE  + dir_x)] == '1')
-	// 	return ;
 	int new_x = (int)((game->player.x + dir_x * SPRITE) / SPRITE);
 	int new_y = (int)((game->player.y + dir_y * SPRITE) / SPRITE);
 
-	printf("x = %d, y = %d\n",new_x, new_y);
-	if (new_y <= 0 || new_x >= S_W/ SPRITE || new_x <= 0 || new_y >= S_H/SPRITE)
-    	return ;
-	// if (game->map[new_x][new_y] == '1')
-	//     printf("what\n");
-	//clear_current_position(game);
+	if (game->map[new_y][new_x] == '1')
+	    return ;
+	clear_current_position(game);
 	game -> player.x += dir_x * SPRITE;
 	game -> player.y += dir_y * SPRITE;
 	draw_player(game, game -> player.x - SPRITE / 2, game -> player.y - SPRITE / 2, SPRITE, 16777261);

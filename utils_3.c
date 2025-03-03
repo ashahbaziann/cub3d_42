@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:49:43 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/17 13:58:32 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/03 13:57:48 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ int textures_all_set(t_game *game)
 	if (!game -> floor || !game -> ceiling)
 		return (0);
 	return (1);
+}
+int is_player(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return (1);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/20 17:39:18 by gmelikya         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:02:16 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int		ft_atoi(const char *str);
 //utils_3
 char	*get_direction(t_direction type);
 int		textures_all_set(t_game *game);
+int		is_player(char c);
 
 //validate_args
 int validate_args(int argc, char **argv);
@@ -157,6 +158,7 @@ void	init_window(t_game *game);
 
 //raycasting
 //void cast_ray(t_game *player);
+void draw_square(t_game *game, int x, int y, int size, int color);
 void draw_player(t_game *game, int x, int y, int size, int color);
 void my_mlx_pixel_put(t_image *img, int x, int y, int color);
 

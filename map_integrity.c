@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_integrity.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:23:24 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/20 16:10:42 by gmelikya         ###   ########.fr       */
+/*   Updated: 2025/03/03 13:57:41 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,7 @@ static int is_valid_char(char c)
 		return (1);
 	return (0);
 }
-static int is_player(char c)
-{
-	if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		return (1);
-	return (0);
-}
+
 
 
 static void set_player(t_game *game, int i, int j)
