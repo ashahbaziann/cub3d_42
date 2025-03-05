@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:23:24 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/03 13:57:41 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:47:42 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,8 @@ static void set_player(t_game *game, int i, int j)
 			game -> player.angle = M_PI;
 		game -> player.x = j * SPRITE + SPRITE / 2;
 		game -> player.y = i * SPRITE + SPRITE / 2;
-		// printf("!!!!!!!!!!!!!!!\n");
-		// printf("game -> player.x == _%f_\n", game -> player.x);
-		// printf("game -> player.y == _%f_\n", game -> player.y);
-		// printf("!!!!!!!!!!!!!!!");
+		game -> player.dx = cos(game -> player.angle);
+		game -> player.dy = sin(game -> player.angle);
 	}
 }
 void map_integrity(t_game *game)

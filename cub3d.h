@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/03 14:02:16 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:31:07 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define A 0
 # define S 1
 # define D 2
+# define L_A 123
+# define R_A 124
 # define EXIT 53
 
 typedef struct s_player
@@ -38,6 +40,8 @@ typedef struct s_player
 	double		y;
 	int			count;
 	double		angle;
+	double			dx;
+	double			dy;
 }	t_player;
 
 typedef struct s_texture
@@ -161,5 +165,6 @@ void	init_window(t_game *game);
 void draw_square(t_game *game, int x, int y, int size, int color);
 void draw_player(t_game *game, int x, int y, int size, int color);
 void my_mlx_pixel_put(t_image *img, int x, int y, int color);
-
+void draw_direction(t_game *game, int color);
+void draw_map(t_game *game);
 #endif

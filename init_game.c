@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:31:53 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/19 15:41:24 by gmelikya         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:46:27 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ static void init_player(t_game *game)
 	game -> player.y = 0;
 	game -> player.count = 0;
 	game -> player.angle = 0;
+	game -> player.dx = 0;
+	game -> player.dy = 0;
+
 }
 
 int init_game(t_game *game, int fd)

@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:50:42 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/03 14:05:52 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:53:00 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,25 @@ void draw_square(t_game *game, int x, int y, int size, int color)
 	}
 }
 
+void draw_line(t_game *game, int x, int y, int size, int color)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while(i < size && i  < 2)
+	{
+		j = 0;
+		while (j < size)
+		{
+            my_mlx_pixel_put(&game->img, x + j, y + i, color);
+			j++;
+		}
+		i++;
+	}
+}
+
 void draw_player(t_game *game, int x, int y, int size, int color)
 {
 	draw_square(game, x + 4, y + 4, size - 10, color);
@@ -136,22 +155,22 @@ void draw_map(t_game *game)
 
 	i = 0;
 	j = 0;
-	(void)game;
+	put_background(game, game -> ceiling_colour);
 	while (i < game -> height)
 	{
 		j = 0;
 		while (j < game -> width)
 		{
 			if (game -> map[i][j] == '1')
-				draw_square(game, j * SPRITE , i * SPRITE , SPRITE - 1, 0);
+				draw_square(game, j * SPRITE , i * SPRITE , SPRITE - 2, 0);
 			else
-				draw_square(game, j * SPRITE , i * SPRITE , SPRITE - 1, 16777215);
-			if (is_player(game -> map[i][j]))
-				draw_player(game, game -> player.x - SPRITE / 2, game -> player.y - SPRITE / 2, SPRITE, 16777261);
+				draw_square(game, j * SPRITE , i * SPRITE , SPRITE - 2, 16777215);
 			j++;
 		}
 		i++;
 	}
+	draw_player(game, game -> player.x - SPRITE / 2, game -> player.y - SPRITE / 2,20, 16777261);
+	draw_direction(game, 0xFF0000);
 }
 
 int main(int argc, char **argv)
@@ -166,7 +185,7 @@ int main(int argc, char **argv)
 	map_integrity(&game);
 	init_window(&game);
 	init_image(&game);
-	put_background(&game, game.ceiling_colour);
+	//put_background(&game, game.ceiling_colour);
 	draw_map(&game);
 	//color_ceiling_and_floor(&game);
 	//draw_player(&game, game.player.x - SPRITE / 2, game.player.y - SPRITE / 2, SPRITE, 16777261);
