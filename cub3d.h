@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/05 17:31:07 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:50:06 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_player
 	double		angle;
 	double			dx;
 	double			dy;
+	double	plane_x;
+	double	plane_y;
 }	t_player;
 
 typedef struct s_texture
@@ -62,6 +64,28 @@ typedef struct s_image
 	int		height;
 }	t_image;
 
+
+typedef struct s_ray
+{
+	double	cameraX;
+	double	cameraY;
+	double	dir_x;
+	double	dir_y;
+	int	map_x;
+	int	map_y;
+	double	side_x;
+	double	side_y;
+	double	delta_x;
+	double	delta_y;
+	double	wallDist;
+	int		step_x;
+	int		step_y;
+	int		hit;
+	int		side;
+	int		lineHeight;
+}	t_ray;
+
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -80,6 +104,7 @@ typedef struct s_game
 	t_texture	west;
 	t_texture	east;
 	t_image		img;
+	t_ray		ray;
 	t_player	player;
 } t_game;
 
@@ -167,4 +192,5 @@ void draw_player(t_game *game, int x, int y, int size, int color);
 void my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void draw_direction(t_game *game, int color);
 void draw_map(t_game *game);
+void raycast(t_game *game);
 #endif

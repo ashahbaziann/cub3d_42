@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:50:42 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/05 17:53:00 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:36:36 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,13 +185,14 @@ int main(int argc, char **argv)
 	map_integrity(&game);
 	init_window(&game);
 	init_image(&game);
+	raycast(&game);
 	//put_background(&game, game.ceiling_colour);
-	draw_map(&game);
+	//draw_map(&game);
 	//color_ceiling_and_floor(&game);
 	//draw_player(&game, game.player.x - SPRITE / 2, game.player.y - SPRITE / 2, SPRITE, 16777261);
 	//cast_ray(&game);
 	mlx_put_image_to_window(game.mlx, game.mlx_win, game.img.img, 0, 0);
-	mlx_hook(game.mlx_win, 2, 0, handle_movement, &game);
+//	mlx_hook(game.mlx_win, 2, 0, handle_movement, &game);
 	mlx_loop(game.mlx);
 	print_game(&game);
 }

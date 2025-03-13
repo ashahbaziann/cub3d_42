@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:23:24 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/05 15:47:42 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:40:53 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,13 @@ static void set_player(t_game *game, int i, int j)
 			game -> player.angle = 0;
 		else if (game -> map[i][j] == 'E')
 			game -> player.angle = M_PI;
-		game -> player.x = j * SPRITE + SPRITE / 2;
-		game -> player.y = i * SPRITE + SPRITE / 2;
+		game -> player.x = j + 1 / 2;
+		game -> player.y = i + 1 / 2;
 		game -> player.dx = cos(game -> player.angle);
 		game -> player.dy = sin(game -> player.angle);
+		game->player.plane_x = -game->player.dy * 0.66;
+		game->player.plane_y = game->player.dx * 0.66;
+
 	}
 }
 void map_integrity(t_game *game)

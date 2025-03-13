@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:31:53 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/05 15:46:27 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:09:29 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,32 @@ static void init_player(t_game *game)
 	game -> player.angle = 0;
 	game -> player.dx = 0;
 	game -> player.dy = 0;
+	game -> player.plane_x = 0;
+	game -> player.plane_y = 0.66;
 
+
+}
+
+
+
+static void	init_ray(t_game *game)
+{
+	game -> ray.cameraX = 0;
+	game -> ray.cameraY = 0;
+	game -> ray.dir_x = 0;
+	game -> ray.dir_y = 0;
+	game -> ray.map_x = 0;
+	game -> ray.map_y = 0;
+	game -> ray.side_x = 0;
+	game -> ray.side_y = 0;
+	game -> ray.delta_x = 0;
+	game -> ray.delta_y = 0;
+	game -> ray.wallDist = 0;
+	game -> ray.step_x = 0;
+	game -> ray.step_y = 0;
+	game -> ray.hit = 0;
+	game -> ray.side = 0;
+	game -> ray.lineHeight = 0;
 }
 
 int init_game(t_game *game, int fd)
@@ -121,6 +146,7 @@ int init_game(t_game *game, int fd)
 	// }
 	init_textures(game);
 	init_player(game);
+	init_ray(game);
 	//init_image(game);
 	return (0);
 }
