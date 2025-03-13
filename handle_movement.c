@@ -17,33 +17,33 @@ void draw_direction(t_game *game, int color)
     }
 }
 
-// static void move_player(t_game *game, double dir_x, double dir_y)
-// {
-// 	int new_x = (int)((game->player.x + dir_x * SPRITE) / SPRITE);
-// 	int new_y = (int)((game->player.y + dir_y * SPRITE) / SPRITE);
+static void move_player(t_game *game, double dir_x, double dir_y)
+{
+	int new_x = (int)((game->player.x + dir_x * SPRITE) / SPRITE);
+	int new_y = (int)((game->player.y + dir_y * SPRITE) / SPRITE);
 
-// 	if (game->map[new_y][new_x] == '1')
-// 	    return ;
-// 	game -> player.x += dir_x * SPRITE;
-// 	game -> player.y += dir_y * SPRITE;
-// }
-// static void rotate_player(int keycode, t_game *game)
-// {
-// 	if (keycode == L_A)
-// 		{
-// 			game->player.angle -= 0.1;
-// 			if (game->player.angle < 0)
-// 				game->player.angle += 2 * M_PI;
-// 		}
-// 		else
-// 		{
-// 			game->player.angle += 0.1;
-// 			if (game->player.angle > 2 * M_PI)
-// 				game->player.angle -= 2 * M_PI;
-// 		}
-// 		game -> player.dx = cos(game -> player.angle);
-// 		game -> player.dy = sin(game -> player.angle);
-// }
+	if (game->map[new_y][new_x] == '1')
+	    return ;
+	game -> player.x += dir_x * SPRITE;
+	game -> player.y += dir_y * SPRITE;
+}
+static void rotate_player(int keycode, t_game *game)
+{
+	if (keycode == L_A)
+		{
+			game->player.angle -= 0.1;
+			if (game->player.angle < 0)
+				game->player.angle += 2 * M_PI;
+		}
+		else
+		{
+			game->player.angle += 0.1;
+			if (game->player.angle > 2 * M_PI)
+				game->player.angle -= 2 * M_PI;
+		}
+		game -> player.dx = cos(game -> player.angle);
+		game -> player.dy = sin(game -> player.angle);
+}
 
 void calculate_step_and_side_dist(t_game *game, t_ray *ray, double camera_x)
 {
@@ -109,7 +109,7 @@ double calculate_wall_distance(t_game *game,t_ray *ray)
     double wall_dist;
     if (ray->side == 0)
 	{
-        wall_dist = (ray->map_x - game->player.x+ (1 - ray->step_x) / 2) / ray->dir_x;
+        wall_dist = (ray->map_x - game->player.x + (1 - ray->step_x) / 2) / ray->dir_x;
 	}
     else
         wall_dist = (ray->map_y - game->player.y + (1 - ray->step_y) / 2) / ray->dir_y;
@@ -127,7 +127,6 @@ void draw_wall(t_game *game, int x, double wall_dist)
     int draw_end =( line_height / 2 + game->height * SPRITE/ 2);
     if (draw_end >= game->height * SPRITE)
 		draw_end = (game->height - 1) * SPRITE;
-
     int color = 0xFFFFFF;
 	printf("start %d, end %d\n", draw_start,draw_end);
     for (int y = draw_start; y < draw_end; y++)
@@ -142,7 +141,8 @@ void raycast(t_game *game)
 {
     for (int x = 0; x < game -> width * SPRITE; x++)
     {
-        double camera_x = 2 * x / (double)(game->width - 1) * SPRITE;
+        //double camera_x = 2 * x / (double)(game->width - 1) * SPRITE;
+		double camera_x = 2 * x / (double)(game->width * SPRITE - 1) - 1;
 
         calculate_step_and_side_dist(game, &game ->ray, camera_x);
         perform_dda(game, &game ->ray);
@@ -156,19 +156,19 @@ int	handle_movement(int keycode, t_game *game)
 	//if (keycode == EXIT) HANDLE
 	(void)keycode;
 	raycast(game);
-	// if (keycode == W)
-	// 	move_player(game, game -> player.dx * 0.5, game -> player.dy * 0.5);
-	// else if (keycode == S)
-	// 	move_player(game, -game -> player.dx * 0.5, -game -> player.dy * 0.5);
-	// else if (keycode == A)
-	// 	move_player(game, -0.5, 0);
-	// else if (keycode == D)
-	// 	move_player(game, 0.5, 0);
-	// else if (keycode == L_A || keycode == R_A)
-	// 	rotate_player(keycode, game);
-	// mlx_clear_window(game->mlx, game->mlx_win);
-	// raycast(game);
-	//draw_map(game);
+	if (keycode == W)
+		move_player(game, game -> player.dx * 0.5, game -> player.dy * 0.5);
+	else if (keycode == S)
+		move_player(game, -game -> player.dx * 0.5, -game -> player.dy * 0.5);
+	else if (keycode == A)
+		move_player(game, -0.5, 0);
+	else if (keycode == D)
+		move_player(game, 0.5, 0);
+	else if (keycode == L_A || keycode == R_A)
+		rotate_player(keycode, game);
+	mlx_clear_window(game->mlx, game->mlx_win);
+	draw_map(game);
+	raycast(game);
 	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
 	return (0);
 }

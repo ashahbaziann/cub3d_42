@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:50:42 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/11 17:36:36 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:25:38 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,16 +161,16 @@ void draw_map(t_game *game)
 		j = 0;
 		while (j < game -> width)
 		{
-			if (game -> map[i][j] == '1')
-				draw_square(game, j * SPRITE , i * SPRITE , SPRITE - 2, 0);
-			else
-				draw_square(game, j * SPRITE , i * SPRITE , SPRITE - 2, 16777215);
+			//if (game -> map[i][j] == '1')
+				draw_square(game, j * SPRITE , i * SPRITE , SPRITE, 0);
+			// else
+			// 	draw_square(game, j * SPRITE , i * SPRITE , SPRITE - 2, 16777215);
 			j++;
 		}
 		i++;
 	}
-	draw_player(game, game -> player.x - SPRITE / 2, game -> player.y - SPRITE / 2,20, 16777261);
-	draw_direction(game, 0xFF0000);
+	//draw_player(game, game -> player.x - SPRITE / 2, game -> player.y - SPRITE / 2,20, 16777261);
+	//draw_direction(game, 0xFF0000);
 }
 
 int main(int argc, char **argv)
@@ -192,7 +192,7 @@ int main(int argc, char **argv)
 	//draw_player(&game, game.player.x - SPRITE / 2, game.player.y - SPRITE / 2, SPRITE, 16777261);
 	//cast_ray(&game);
 	mlx_put_image_to_window(game.mlx, game.mlx_win, game.img.img, 0, 0);
-//	mlx_hook(game.mlx_win, 2, 0, handle_movement, &game);
+	mlx_hook(game.mlx_win, 2, 0, handle_movement, &game);
 	mlx_loop(game.mlx);
 	print_game(&game);
 }
