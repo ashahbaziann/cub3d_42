@@ -26,12 +26,12 @@
 # define NUM_RAYS 120
 # define S_W 1600
 # define S_H 1000
-# define W 13
-# define A 0
-# define S 1
-# define D 2
-# define L_A 123
-# define R_A 124
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define L_A 65361
+# define R_A 65363
 # define EXIT 53
 
 typedef struct s_player
@@ -71,18 +71,21 @@ typedef struct s_ray
 	double	cameraY;
 	double	dir_x;
 	double	dir_y;
-	int	map_x;
-	int	map_y;
+	int		map_x;
+	int		map_y;
 	double	side_x;
 	double	side_y;
 	double	delta_x;
 	double	delta_y;
-	double	wallDist;
 	int		step_x;
 	int		step_y;
 	int		hit;
 	int		side;
-	int		lineHeight;
+	double	wall_dist;
+	double	wall_x;
+	int		line_height;
+	double	draw_start;
+	double	draw_end;
 }	t_ray;
 
 

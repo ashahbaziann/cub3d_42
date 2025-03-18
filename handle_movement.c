@@ -17,9 +17,23 @@ void draw_direction(t_game *game, int color)
     }
 }
 
+
+static void clear_image(t_game *game)
+{
+    int x, y;
+    for (y = 0; y < S_H; y++)
+    {
+        for (x = 0; x < S_W; x++)
+        {
+            my_mlx_pixel_put(&game->img, x, y, 16000);
+        }
+    }
+}
+
 static void move_player(t_game *game, double dir_x, double dir_y)
 {
-	int new_x = (int)((game->player.x + dir_x * SPRITE) / SPRITE);
+    // printf("tf\n");
+    int new_x = (int)((game->player.x + dir_x * SPRITE) / SPRITE);
 	int new_y = (int)((game->player.y + dir_y * SPRITE) / SPRITE);
 
 	if (game->map[new_y][new_x] == '1')
@@ -98,78 +112,89 @@ void perform_dda(t_game *game, t_ray *ray)
         }
         if (game ->map[ray->map_y][ray->map_x] == '1')
 		{
-			printf("map Y %d, map X %d\n",ray->map_y /SPRITE, ray->map_x/SPRITE);
+			//printf("map Y %d, map X %d\n",ray->map_y /SPRITE, ray->map_x/SPRITE);
             ray->hit = 1;
 		}
     }
 }
 
-double calculate_wall_distance(t_game *game,t_ray *ray)
+void calculate_wall_distance(t_game *game,t_ray *ray)
 {
-    double wall_dist;
+   // double wall_dist;
     if (ray->side == 0)
 	{
-        wall_dist = (ray->map_x - game->player.x + (1 - ray->step_x) / 2) / ray->dir_x;
+       ray->wall_dist = (ray->map_x - game->player.x + (1 - ray->step_x) / 2) / ray->dir_x;
 	}
     else
-        wall_dist = (ray->map_y - game->player.y + (1 - ray->step_y) / 2) / ray->dir_y;
-    return wall_dist;
+        ray->wall_dist = (ray->map_y - game->player.y + (1 - ray->step_y) / 2) / ray->dir_y;
 }
 
 
-void draw_wall(t_game *game, int x, double wall_dist)
+void draw_wall(t_game *game, int x,t_ray *ray)
 {
-    int line_height = (int)(game->height * SPRITE/ wall_dist);
-		printf("wall_dist %f, line %d\n",wall_dist, line_height);
-    int draw_start = (-line_height / 2 + game->height * SPRITE/ 2);
-    if (draw_start < 0)
-		draw_start = 0;
-    int draw_end =( line_height / 2 + game->height * SPRITE/ 2);
-    if (draw_end >= game->height * SPRITE)
-		draw_end = (game->height - 1) * SPRITE;
+    ray->line_height = (int)(S_H/ ray->wall_dist);
+		//printf("wall_dist %f, line %d\n",wall_dist, line_height);
+    ray->draw_start = (-ray->line_height / 2 + S_H/ 2);
+    if (ray->draw_start < 0)
+		ray->draw_start = 0;
+    ray->draw_end =( ray->line_height / 2 + S_H/ 2);
+    if (ray->draw_end >= S_H)
+		ray->draw_end = S_H/SPRITE - 1 * SPRITE;
+    if (ray->side == 0)
+		ray->wall_x = game->player.y + ray->wall_dist * ray->dir_y;
+	else
+		ray->wall_x = game->player.x + ray->wall_dist * ray->dir_x;
+	ray->wall_x -= floor(ray->wall_x);
     int color = 0xFFFFFF;
-	printf("start %d, end %d\n", draw_start,draw_end);
-    for (int y = draw_start; y < draw_end; y++)
+	//printf("start %d, end %d\n", ray->draw_start,ray->draw_end);
+    for (int y = ray->draw_start; y < ray->draw_end; y++)
 	{
-		printf("x = %d, y = %d\n",x ,y);
+		//printf("x = %d, y = %d\n",x ,y);
         my_mlx_pixel_put(&game->img, x, y, color);
 	}
+   /// mlx_clear_window(game->mlx, game->mlx_win);
 }
 
 
 void raycast(t_game *game)
 {
-    for (int x = 0; x < game -> width * SPRITE; x++)
+    int x;
+
+    x = 0;
+    while (x < S_W)
     {
-        //double camera_x = 2 * x / (double)(game->width - 1) * SPRITE;
-		double camera_x = 2 * x / (double)(game->width * SPRITE - 1) - 1;
+		double camera_x = 2 * x / (double)(S_W - 1) - 1;
 
         calculate_step_and_side_dist(game, &game ->ray, camera_x);
         perform_dda(game, &game ->ray);
 
-        double wall_dist = calculate_wall_distance(game, &game ->ray);
-        draw_wall(game, x, wall_dist);
+        calculate_wall_distance(game, &game ->ray);
+        draw_wall(game, x, &game ->ray);
+        x++;
     }
+    mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
+   
 }
 int	handle_movement(int keycode, t_game *game)
 {
-	//if (keycode == EXIT) HANDLE
-	(void)keycode;
-	raycast(game);
+    clear_image(game); 
+   // mlx_clear_window(game->mlx, game->mlx_win);
+	//raycast(game);
 	if (keycode == W)
-		move_player(game, game -> player.dx * 0.5, game -> player.dy * 0.5);
+		move_player(game, game -> player.dx * 0.1, game -> player.dy * 0.1);
 	else if (keycode == S)
-		move_player(game, -game -> player.dx * 0.5, -game -> player.dy * 0.5);
+		move_player(game, -game -> player.dx * 0.1, -game -> player.dy * 0.1);
 	else if (keycode == A)
-		move_player(game, -0.5, 0);
+		move_player(game, -0.1, 0);
 	else if (keycode == D)
-		move_player(game, 0.5, 0);
+		move_player(game, 0.1, 0);
 	else if (keycode == L_A || keycode == R_A)
 		rotate_player(keycode, game);
-	mlx_clear_window(game->mlx, game->mlx_win);
-	draw_map(game);
+	//mlx_clear_window(game->mlx, game->mlx_win);
+	//draw_map(game);
 	raycast(game);
-	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
+    mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
+   // mlx_clear_window(game->mlx, game->mlx_win);
 	return (0);
 }
 

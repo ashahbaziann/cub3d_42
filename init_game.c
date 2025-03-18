@@ -41,34 +41,34 @@ void ft_strcpy(char *dest, char *src, int len)
 	dest[j] = '\0';
 }
 
-static int	tab_count(char *str)
-{
-	int	i;
-	int	count;
+// static int	tab_count(char *str)
+// {
+// 	int	i;
+// 	int	count;
 
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i] == '\t')
-			count += 3;
-		i++;
-	}
-	return (count);
-}
+// 	i = 0;
+// 	count = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '\t')
+// 			count += 3;
+// 		i++;
+// 	}
+// 	return (count);
+// }
 
 void fill_file(char **map)
 {
 	int		i;
 	char	*tmp;
 	size_t	max;
-	int		tab;
+	//int		tab;
 
 	i = 0;
 	max = (size_t)max_column(map);
 	while (map[i])
 	{
-		tab = tab_count(map[i]);
+		//tab = tab_count(map[i]);
 		if (ft_strlen(map[i]) < max)
 		{
 			tmp = malloc(sizeof(char) * (max + 1));
@@ -118,19 +118,19 @@ static void	init_ray(t_game *game)
 	game -> ray.side_y = 0;
 	game -> ray.delta_x = 0;
 	game -> ray.delta_y = 0;
-	game -> ray.wallDist = 0;
 	game -> ray.step_x = 0;
 	game -> ray.step_y = 0;
 	game -> ray.hit = 0;
 	game -> ray.side = 0;
-	game -> ray.lineHeight = 0;
+	game -> ray.wall_dist = 0;
+	game -> ray.wall_x = 0;
+	game -> ray.line_height = 0;
+	game -> ray.draw_start = 0;
+	game -> ray.draw_end = 0;
 }
 
 int init_game(t_game *game, int fd)
 {
-	int i;
-
-	i = 0;
 	game -> file = read_map(fd);
 	game -> width = 0;
 	game -> height = 0;

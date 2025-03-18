@@ -41,7 +41,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)  Makefile
-	cc $(CFLAGS) $(OBJS) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	cc $(CFLAGS) $(OBJS) -Lmlx -lmlx -lX11 -lXext -lm -o $(NAME)
 
 %.o:%.c Makefile $(HEADERS)
 	cc $(CFLAGS) -c $< -o $@

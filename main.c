@@ -76,12 +76,12 @@ void my_mlx_pixel_put(t_image *img, int x, int y, int color)
 	static void	init_image(t_game *game)
 {
 
-	game -> img.img = mlx_new_image(game -> mlx, game -> width * SPRITE, game -> height * SPRITE);
+	game -> img.img = mlx_new_image(game -> mlx, S_W, S_H);
 	game -> img.address = mlx_get_data_addr(game -> img.img, &game -> img.bpp, &game -> img.line_length, &game -> img.endian);
-	game -> img.width = game -> width * SPRITE;
-	game -> img.height = game -> height * SPRITE;
+	game -> img.width = S_W;
+	game -> img.height = S_H;
 	printf("Image width: %d, height: %d\n", game->img.width, game->img.height);
-	printf("Game width: %d, height: %d\n", game -> width * SPRITE, game -> height * SPRITE);
+	printf("Game width: %d, height: %d\n", S_W, S_H);
 
 }
 
@@ -93,12 +93,12 @@ void put_background(t_game *game, int color)
 	i = 0;
 	j = 0;
     int *pixels = (int *)game->img.address;
-	while(i < game -> height * SPRITE)
+	while(i < S_H)
 	{
 		j = 0;
-		while (j < game -> width * SPRITE)
+		while (j < S_W)
 		{
-            pixels[i * game -> width * SPRITE + j] = color;
+            pixels[i * S_W + j] = color;
 			j++;
 		}
 		i++;
@@ -156,10 +156,10 @@ void draw_map(t_game *game)
 	i = 0;
 	j = 0;
 	put_background(game, game -> ceiling_colour);
-	while (i < game -> height)
+	while (i < S_H / SPRITE)
 	{
 		j = 0;
-		while (j < game -> width)
+		while (j < S_W / SPRITE)
 		{
 			//if (game -> map[i][j] == '1')
 				draw_square(game, j * SPRITE , i * SPRITE , SPRITE, 0);
@@ -169,8 +169,8 @@ void draw_map(t_game *game)
 		}
 		i++;
 	}
-	//draw_player(game, game -> player.x - SPRITE / 2, game -> player.y - SPRITE / 2,20, 16777261);
-	//draw_direction(game, 0xFF0000);
+	mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
+	mlx_clear_window(game->mlx, game->mlx_win);
 }
 
 int main(int argc, char **argv)
@@ -186,13 +186,9 @@ int main(int argc, char **argv)
 	init_window(&game);
 	init_image(&game);
 	raycast(&game);
-	//put_background(&game, game.ceiling_colour);
-	//draw_map(&game);
-	//color_ceiling_and_floor(&game);
-	//draw_player(&game, game.player.x - SPRITE / 2, game.player.y - SPRITE / 2, SPRITE, 16777261);
-	//cast_ray(&game);
 	mlx_put_image_to_window(game.mlx, game.mlx_win, game.img.img, 0, 0);
-	mlx_hook(game.mlx_win, 2, 0, handle_movement, &game);
+	//mlx_hook(game.mlx_win, 2, 0, handle_movement, &geame);
+	mlx_key_hook(game.mlx_win, handle_movement, &game);
 	mlx_loop(game.mlx);
 	print_game(&game);
 }
