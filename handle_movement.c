@@ -1,21 +1,21 @@
 # include "cub3d.h"
 
 
-void draw_direction(t_game *game, int color)
-{
-    int line_length = 20;
-    int i;
+// void draw_direction(t_game *game, int color)
+// {
+//     int line_length = 20;
+//     int i;
 
-    int x_start = game->player.x;
-    int y_start = game->player.y;
+//     int x_start = game->player.x;
+//     int y_start = game->player.y;
 
-    for (i = 0; i < line_length; i++)
-    {
-        int dx = x_start - 5 + cos(game->player.angle) * i;
-        int dy = y_start - 5 + sin(game->player.angle) * i;
-        my_mlx_pixel_put(&game->img, dx, dy, color);
-    }
-}
+//     for (i = 0; i < line_length; i++)
+//     {
+//         int dx = x_start - 5 + cos(game->player.angle) * i;
+//         int dy = y_start - 5 + sin(game->player.angle) * i;
+//         my_mlx_pixel_put(&game->img, dx, dy, color);
+//     }
+// }
 
 
 static void clear_image(t_game *game)
@@ -25,38 +25,10 @@ static void clear_image(t_game *game)
     {
         for (x = 0; x < S_W; x++)
         {
-            my_mlx_pixel_put(&game->img, x, y, 16000);
+            my_mlx_pixel_put(&game->img, x, y, 0);
         }
     }
 }
-
-int key_press(int keycode, t_game *game)
-{
-    if (keycode == W)
-        game->player.move_forward = 1;
-    if (keycode == S)
-        game->player.move_backward = 1;
-    if (keycode == A)
-        game->player.move_left = 1;
-    if (keycode == D)
-        game->player.move_right = 1;
-    return (0);
-}
-
-int key_release(int keycode, t_game *game)
-{
-    if (keycode == W)
-        game->player.move_forward = 0;
-    if (keycode == S)
-        game->player.move_backward = 0;
-    if (keycode == A)
-        game->player.move_left = 0;
-    if (keycode == D)
-        game->player.move_right = 0;
-    return (0);
-}
-
-
 static void move_player(t_game *game, double dir_x, double dir_y)
 {
     int new_x;
@@ -68,26 +40,25 @@ static void move_player(t_game *game, double dir_x, double dir_y)
         game->player.x += dir_x;
         game->player.y += dir_y;
     }
-    else
-        printf("SHIT\n");
 }
+
 
 static void rotate_player(int keycode, t_game *game)
 {
-	if (keycode == L_A)
-		{
-			game->player.angle -= 0.1;
-			if (game->player.angle < 0)
-				game->player.angle += 2 * M_PI;
-		}
-		else
-		{
-			game->player.angle += 0.1;
-			if (game->player.angle > 2 * M_PI)
-				game->player.angle -= 2 * M_PI;
-		}
-		game -> player.dx = cos(game -> player.angle);
-		game -> player.dy = sin(game -> player.angle);
+    double old_dx;
+    double old_plane_x;
+    double rotspeed = SPEED;
+
+    if (keycode == L_A)
+        rotspeed = -0.1;
+
+    old_dx = game->player.dx;
+    game->player.dx = game->player.dx * cos(rotspeed) - game->player.dy * sin(rotspeed);
+    game->player.dy = old_dx * sin(rotspeed) + game->player.dy * cos(rotspeed);
+
+    old_plane_x = game->player.plane_x;
+    game->player.plane_x = game->player.plane_x * cos(rotspeed) - game->player.plane_y * sin(rotspeed);
+    game->player.plane_y = old_plane_x * sin(rotspeed) + game->player.plane_y * cos(rotspeed);
 }
 
 
@@ -105,6 +76,13 @@ static void move_to_direction(t_game *game)
 }
 int	handle_movement(int keycode, t_game *game)
 {
+    if (keycode == EXIT)
+    {
+        mlx_destroy_window(game->mlx, game->mlx_win);
+        //game_free(game);
+        exit(0);
+    }
+
     clear_image(game); 
 	if (keycode == L_A || keycode == R_A)
 		rotate_player(keycode, game);

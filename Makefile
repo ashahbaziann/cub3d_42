@@ -34,6 +34,7 @@ SRCS =  main.c \
 		gnl/get_next_line_utils.c \
 		handle_movement.c \
 		raycast.c \
+		events.c \
 
 
 OBJS = $(SRCS:.c=.o)

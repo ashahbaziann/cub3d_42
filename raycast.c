@@ -51,19 +51,13 @@ void perform_dda(t_game *game, t_ray *ray)
             ray->map_y += ray->step_y;
             ray->side = 1;
         }
-        if (ray->map_y < 0.25//idk the point
+        if (ray->map_y < 0.25
 			|| ray->map_x < 0.25
 			|| ray->map_y > game->height - 0.25
 			|| ray->map_x > game->width - 1.25)
 			break ;
-
-        if (ray->map_x < 0 || ray->map_y < 0 || ray->map_x >= game->width || ray->map_y >= game->height)
-            break;
         if (game ->map[ray->map_y][ray->map_x] == '1' )
-		{
-			//printf("map Y %d, map X %d\n",ray->map_y /SPRITE, ray->map_x/SPRITE);
             ray->hit = 1;
-		}
     }
 }
 
@@ -81,26 +75,20 @@ void calculate_wall_distance(t_game *game,t_ray *ray)
 void draw_wall(t_game *game, int x,t_ray *ray)
 {
     ray->line_height = (int)(S_H/ ray->wall_dist);
-    //printf("wall_dist %f, line %d\n",wall_dist, line_height);
     ray->draw_start = (-ray->line_height / 2 + S_H/ 2);
     if (ray->draw_start < 0)
-    ray->draw_start = 0;
+        ray->draw_start = 0;
     ray->draw_end =(ray->line_height / 2 + S_H/ 2);
     if (ray->draw_end >= S_H)
-    ray->draw_end = S_H - 1;
+        ray->draw_end = S_H - 1;
     if (ray->side == 0)
 		ray->wall_x = game->player.y + ray->wall_dist * ray->dir_y;
 	else
 		ray->wall_x = game->player.x + ray->wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
     int color = 0xFFFFFF;
-	//printf("start %d, end %d\n", ray->draw_start,ray->draw_end);
     for (int y = ray->draw_start; y < ray->draw_end; y++)
-	{
-		//printf("x = %d, y = %d\n",x ,y);
         my_mlx_pixel_put(&game->img, x, y, color);
-	}
-   /// mlx_clear_window(game->mlx, game->mlx_win);
 }
 
 
@@ -115,7 +103,6 @@ void raycast(t_game *game)
 
         calculate_step_and_side_dist(game, &game ->ray, camera_x);
         perform_dda(game, &game ->ray);
-
         calculate_wall_distance(game, &game ->ray);
         draw_wall(game, x, &game ->ray);
         x++;

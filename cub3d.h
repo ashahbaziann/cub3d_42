@@ -32,7 +32,7 @@
 # define D 100
 # define L_A 65361
 # define R_A 65363
-# define EXIT 53
+# define EXIT 65307
 # define SPEED 0.1
 
 typedef struct s_player

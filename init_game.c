@@ -141,14 +141,8 @@ int init_game(t_game *game, int fd)
 	game -> ceiling = NULL;
 	game -> floor_colour = 0;
 	game -> ceiling_colour = 0;
-	// while (game->ray_angle[i] < NUM_RAYS)
-	// {
-	// 	game->ray_angle[i] = 0;
-	// 	i++;
-	// }
 	init_textures(game);
 	init_player(game);
 	init_ray(game);
-	//init_image(game);
 	return (0);
 }
