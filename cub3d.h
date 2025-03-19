@@ -27,12 +27,13 @@
 # define S_W 1600
 # define S_H 1000
 # define W 119
-# define A 97
+# define A 100
 # define S 115
-# define D 100
+# define D 97
 # define L_A 65361
 # define R_A 65363
 # define EXIT 53
+# define SPEED 0.1
 
 typedef struct s_player
 {
@@ -40,10 +41,14 @@ typedef struct s_player
 	double		y;
 	int			count;
 	double		angle;
-	double			dx;
-	double			dy;
-	double	plane_x;
-	double	plane_y;
+	double		dx;
+	double		dy;
+	double		plane_x;
+	double		plane_y;
+	int			move_backward;
+	int			move_forward;
+	int			move_left;
+	int			move_right;
 }	t_player;
 
 typedef struct s_texture
@@ -196,4 +201,9 @@ void my_mlx_pixel_put(t_image *img, int x, int y, int color);
 void draw_direction(t_game *game, int color);
 void draw_map(t_game *game);
 void raycast(t_game *game);
+
+
+int key_press(int keycode, t_game *game);
+int key_release(int keycode, t_game *game);
+
 #endif

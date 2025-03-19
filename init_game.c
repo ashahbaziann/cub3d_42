@@ -100,8 +100,10 @@ static void init_player(t_game *game)
 	game -> player.dy = 0;
 	game -> player.plane_x = 0;
 	game -> player.plane_y = 0.66;
-
-
+	game -> player.move_backward = 0;
+	game -> player.move_forward = 0;
+	game -> player.move_left = 0;
+	game -> player.move_right = 0;
 }
 
 

@@ -30,17 +30,46 @@ static void clear_image(t_game *game)
     }
 }
 
+int key_press(int keycode, t_game *game)
+{
+    if (keycode == W)
+        game->player.move_forward = 1;
+    if (keycode == S)
+        game->player.move_backward = 1;
+    if (keycode == A)
+        game->player.move_left = 1;
+    if (keycode == D)
+        game->player.move_right = 1;
+    return (0);
+}
+
+int key_release(int keycode, t_game *game)
+{
+    if (keycode == W)
+        game->player.move_forward = 0;
+    if (keycode == S)
+        game->player.move_backward = 0;
+    if (keycode == A)
+        game->player.move_left = 0;
+    if (keycode == D)
+        game->player.move_right = 0;
+    return (0);
+}
+
+
 static void move_player(t_game *game, double dir_x, double dir_y)
 {
-    // printf("tf\n");
-    int new_x = (int)((game->player.x + dir_x * SPRITE) / SPRITE);
-	int new_y = (int)((game->player.y + dir_y * SPRITE) / SPRITE);
+    int new_x = (int)(game->player.x + dir_x);
+    int new_y = (int)(game->player.y + dir_y);
 
-	if (game->map[new_y][new_x] == '1')
-	    return ;
-	game -> player.x += dir_x * SPRITE;
-	game -> player.y += dir_y * SPRITE;
+    // Check for wall collision before updating position
+    if (game->map[new_y][new_x] != '1')
+    {
+        game->player.x += dir_x;
+        game->player.y += dir_y;
+    }
 }
+
 static void rotate_player(int keycode, t_game *game)
 {
 	if (keycode == L_A)
@@ -110,7 +139,12 @@ void perform_dda(t_game *game, t_ray *ray)
             ray->map_y += ray->step_y;
             ray->side = 1;
         }
-        if (game ->map[ray->map_y][ray->map_x] == '1')
+        if (ray->map_y < 0.25//idk the point
+			|| ray->map_x < 0.25
+			|| ray->map_y > game->height - 0.25
+			|| ray->map_x > game->width - 1.25)
+			break ;
+        if (game ->map[ray->map_y][ray->map_x] == '1' )
 		{
 			//printf("map Y %d, map X %d\n",ray->map_y /SPRITE, ray->map_x/SPRITE);
             ray->hit = 1;
@@ -175,25 +209,31 @@ void raycast(t_game *game)
     mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
    
 }
+
+
+static void move_to_direction(t_game *game)
+{
+    if (game->player.move_forward)
+		move_player(game, game -> player.dx * SPEED, game -> player.dy * SPEED);
+	else if (game->player.move_backward)
+		move_player(game, -game -> player.dx * SPEED, -game -> player.dy * SPEED);
+	else if (game->player.move_left)
+		move_player(game, -game -> player.dy * SPEED, game -> player.dx * SPEED);
+	else if (game->player.move_right)
+		move_player(game, game -> player.dy * SPEED, -game -> player.dx * SPEED);
+}
 int	handle_movement(int keycode, t_game *game)
 {
-    clear_image(game); 
-   // mlx_clear_window(game->mlx, game->mlx_win);
+   clear_image(game); 
+    ///mlx_clear_window(game->mlx, game->mlx_win);
 	//raycast(game);
-	if (keycode == W)
-		move_player(game, game -> player.dx * 0.1, game -> player.dy * 0.1);
-	else if (keycode == S)
-		move_player(game, -game -> player.dx * 0.1, -game -> player.dy * 0.1);
-	else if (keycode == A)
-		move_player(game, -0.1, 0);
-	else if (keycode == D)
-		move_player(game, 0.1, 0);
-	else if (keycode == L_A || keycode == R_A)
+	if (keycode == L_A || keycode == R_A)
 		rotate_player(keycode, game);
+    move_to_direction(game);
 	//mlx_clear_window(game->mlx, game->mlx_win);
 	//draw_map(game);
 	raycast(game);
-    mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
+   // mlx_put_image_to_window(game->mlx, game->mlx_win, game->img.img, 0, 0);
    // mlx_clear_window(game->mlx, game->mlx_win);
 	return (0);
 }
