@@ -186,8 +186,6 @@ int main(int argc, char **argv)
 	init_window(&game);
 	init_image(&game);
 	raycast(&game);
-	mlx_put_image_to_window(game.mlx, game.mlx_win, game.img.img, 0, 0);
-	//mlx_hook(game.mlx_win, 2, 0, handle_movement, &geame);
 	mlx_hook(game.mlx_win, 2, 1L << 0, key_press, &game);
     mlx_hook(game.mlx_win, 3, 1L << 1, key_release, &game);
 	mlx_key_hook(game.mlx_win, handle_movement, &game);
