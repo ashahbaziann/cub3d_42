@@ -18,14 +18,15 @@
 #include <fcntl.h>
 #include <mlx.h>
 #include <math.h>
+#include <sys/time.h>
 # include "gnl/get_next_line.h"
 
 
 # define SPRITE 32
 # define FOV	60
 # define NUM_RAYS 120
-# define S_W 1600
-# define S_H 1000
+# define S_W 3840
+# define S_H 2160
 # define W 119
 # define A 97
 # define S 115

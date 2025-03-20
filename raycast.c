@@ -97,6 +97,9 @@ void raycast(t_game *game)
     int x;
 
     x = 0;
+    mlx_destroy_image(game->mlx, game->img.img);
+    game->img.img = mlx_new_image(game->mlx, S_W, S_H); 
+    game->img.address = mlx_get_data_addr(game->img.img, &game->img.bpp,&game->img.line_length, &game->img.endian);
     while (x < S_W)
     {
 		double camera_x = 2 * x / (double)(S_W - 1) - 1;
