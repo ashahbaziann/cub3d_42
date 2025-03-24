@@ -44,36 +44,8 @@ void my_mlx_pixel_put(t_image *img, int x, int y, int color)
 
 
 
-// static void color_ceiling_and_floor(t_game *game)
-// {
-// 	int	i;
-// 	int	j;
 
-// 	i = 0;
-// 	j = 0;
-// 	while (i < game -> img.height)
-// 	{
-// 		j = 0;
-// 		while (j < game ->img.width)
-// 		{
-// 			my_mlx_pixel_put(&game->img, j, i, game -> ceiling_colour);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	// while (i < game -> img.height)
-// 	// {
-// 	// 	j = 0;
-// 	// 	while (j < game ->img.width)
-// 	// 	{
-// 	// 		my_mlx_pixel_put(&game -> img, j, i, game -> floor_colour);
-// 	// 		j++;
-// 	// 	}
-// 	// 	i++;
-// 	// }
-// }
-
-	static void	init_image(t_game *game)
+static void	init_image(t_game *game)
 {
 
 	game -> img.img = mlx_new_image(game -> mlx, S_W, S_H);
@@ -85,25 +57,6 @@ void my_mlx_pixel_put(t_image *img, int x, int y, int color)
 
 }
 
-void put_background(t_game *game, int color)
-{
-    int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-    int *pixels = (int *)game->img.address;
-	while(i < S_H)
-	{
-		j = 0;
-		while (j < S_W)
-		{
-            pixels[i * S_W + j] = color;
-			j++;
-		}
-		i++;
-	}
-}
 
 void draw_square(t_game *game, int x, int y, int size, int color)
 {
@@ -155,7 +108,7 @@ void draw_map(t_game *game)
 
 	i = 0;
 	j = 0;
-	put_background(game, game -> ceiling_colour);
+	//put_background(game, game -> ceiling_colour);
 	while (i < S_H / SPRITE)
 	{
 		j = 0;
@@ -173,6 +126,24 @@ void draw_map(t_game *game)
 	mlx_clear_window(game->mlx, game->mlx_win);
 }
 
+static void open_path(t_game *game, char **direction)
+{
+	if (access(*direction, F_OK) != -1)
+	printf("%s\n",*direction);
+	game->north.image.img = mlx_xpm_file_to_image(game->mlx,*direction,&game->north.image.width,&game->north.image.height);
+	if (game->north.image.img == NULL)
+    {
+        printf("Error: Failed to load texture: %s\n", *direction);
+        exit(1);
+    }
+	game->north.image.address = mlx_get_data_addr(game->north.image.img,&game->north.image.bpp,&game->north.image.line_length,&game->north.image.endian);
+	// game->south.image.img = mlx_xpm_file_to_image(game->mlx,*direction,&game->north.image.width,&game->north.image.height);
+	// game->west.image.img = mlx_xpm_file_to_image(game->mlx,*direction,&game->north.image.width,&game->north.image.height);
+	// game->east.image.img = mlx_xpm_file_to_image(game->mlx,*direction,&game->north.image.width,&game->north.image.height);
+	// game->south.image.address = mlx_get_data_addr(&game->north.image.img,&game->north.image.bpp,&game->north.image.line_length,&game->north.image.endian);
+	// game->west.image.address = mlx_get_data_addr(&game->north.image.img,&game->north.image.bpp,&game->north.image.line_length,&game->north.image.endian);
+	// game->east.image.address = mlx_get_data_addr(&game->north.image.img,&game->north.image.bpp,&game->north.image.line_length,&game->north.image.endian);
+}
 int main(int argc, char **argv)
 {
 	t_game	game;
@@ -182,13 +153,14 @@ int main(int argc, char **argv)
 		return (1);
 	init_game(&game, fd);
 	validate_textures(&game);
-	map_integrity(&game);
+	map_parsing(&game);
 	init_window(&game);
 	init_image(&game);
-	raycast(&game);
+	open_path(&game,&game.north.path);
 	mlx_hook(game.mlx_win, 2, 1L << 0, key_press, &game);
     mlx_hook(game.mlx_win, 3, 1L << 1, key_release, &game);
-	mlx_key_hook(game.mlx_win, handle_movement, &game);
+	mlx_loop_hook(game.mlx, update, &game);
 	mlx_loop(game.mlx);
 	print_game(&game);
+	clean(&game,NULL,NULL);
 }

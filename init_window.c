@@ -21,4 +21,6 @@ void	init_window(t_game *game)
 			S_H, "cub_3d");
 	if (!game -> mlx_win)
 		clean(game, NULL, "Couldn't create window!\n");
+	mlx_do_key_autorepeaton(game->mlx);
+
 }

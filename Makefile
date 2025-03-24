@@ -14,7 +14,7 @@ NAME = cub3d
 
 RM = rm -f
 
-CFLAGS = -Wall -Werror -Wextra -g3 -I.  -Imlx -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -I.  -Imlx #-g3 -fsanitize=address
 
 SRCS =  main.c \
 		error.c \
@@ -27,7 +27,7 @@ SRCS =  main.c \
 		utils_2.c \
 		utils_3.c \
 		get_colour.c \
-		map_integrity.c \
+		map_parsing.c \
 		init_window.c \
 		validate_textures.c \
 		gnl/get_next_line.c \

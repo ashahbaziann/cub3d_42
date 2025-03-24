@@ -25,8 +25,8 @@
 # define SPRITE 32
 # define FOV	60
 # define NUM_RAYS 120
-# define S_W 3840
-# define S_H 2160
+# define S_W 2600
+# define S_H 1600
 # define W 119
 # define A 97
 # define S 115
@@ -34,7 +34,8 @@
 # define L_A 65361
 # define R_A 65363
 # define EXIT 65307
-# define SPEED 0.1
+# define SPEED 0.7
+# define ROT_SPEED 0.1
 
 typedef struct s_player
 {
@@ -50,14 +51,11 @@ typedef struct s_player
 	int			move_forward;
 	int			move_left;
 	int			move_right;
+	int			exit;
+	int			rot_left;
+	int			rot_right;
 }	t_player;
 
-typedef struct s_texture
-{
-	char	*path;
-	double	x;
-	double	y;
-}	t_texture;
 
 typedef struct s_image
 {
@@ -69,6 +67,12 @@ typedef struct s_image
 	int		width;
 	int		height;
 }	t_image;
+
+typedef struct s_texture
+{
+	char	*path;
+	t_image	image;
+}	t_texture;
 
 
 typedef struct s_ray
@@ -107,7 +111,6 @@ typedef struct s_game
 	char		*ceiling;
 	int			floor_colour;
 	int			ceiling_colour;
-	//double ray_angle[NUM_RAYS];
 	t_texture	north;
 	t_texture	south;
 	t_texture	west;
@@ -128,6 +131,8 @@ typedef enum
 	C,
 } t_direction;
 
+
+int update(t_game *game);
 
 //handle_movement
 int	handle_movement(int keycode, t_game *game);
@@ -181,7 +186,7 @@ size_t	count_words(char const *s, char c);
 char	**read_map(int fd);
 
 //map_integrity
-void	map_integrity(t_game *game);
+void map_parsing(t_game *game);
 
 //validate_textures
 void	validate_textures(t_game *game);

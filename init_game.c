@@ -87,6 +87,9 @@ static void init_textures(t_game *game)
 	game -> south.path = NULL;
 	game -> east.path = NULL;
 	game -> west.path =	NULL;
+	// game ->north.image.width = 0;
+	// game ->north.image.height = 0;
+	// game ->north.image.img = NULL;
 }
 
 
@@ -104,6 +107,9 @@ static void init_player(t_game *game)
 	game -> player.move_forward = 0;
 	game -> player.move_left = 0;
 	game -> player.move_right = 0;
+	game -> player.exit = 0;
+	game -> player.rot_left = 0;
+	game -> player.rot_right = 0;
 }
 
 

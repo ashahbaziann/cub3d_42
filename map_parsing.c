@@ -61,7 +61,7 @@ static void set_player(t_game *game, int i, int j)
 
 	}
 }
-void map_integrity(t_game *game)
+void map_parsing(t_game *game)
 {
 	int	i;
 	int j;

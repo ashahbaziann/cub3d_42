@@ -12,21 +12,17 @@
 
 #include "cub3d.h"
 
-// static void open_path(t_game *game, char **direction)
-// {
-// 	int	fd;
-
-// 	fd = open(*direction, O_RDONLY);
-// 	//printf("%s\n",*direction);
-// 	if (fd == -1)
-// 		clean(game, NULL, "Invalid path\n");
-// 	else
-// 		close(fd);
-// }
 
 
 static void get_value(t_game *game, char **dir, char *line, t_direction type)
 {
+	t_texture *texture = malloc(sizeof(t_texture));
+	if (texture == NULL)
+	{
+		printf("Error: Failed to allocate memory for texture\n");
+		exit(1);
+	}
+
 	char	**arr;
 
 	if (count_words(line, ' ') != 2)
