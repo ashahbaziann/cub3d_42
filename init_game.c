@@ -83,13 +83,18 @@ void fill_file(char **map)
 
 static void init_textures(t_game *game)
 {
-	game -> north.path = NULL;
-	game -> south.path = NULL;
-	game -> east.path = NULL;
-	game -> west.path =	NULL;
-	// game ->north.image.width = 0;
-	// game ->north.image.height = 0;
-	// game ->north.image.img = NULL;
+	game->north.path = NULL;
+	game->south.path = NULL;
+	game->east.path = NULL;
+	game->west.path = NULL;
+	game->north.image.img = NULL;
+	game->south.image.img = NULL;
+	game->west.image.img = NULL;
+	game->east.image.img = NULL;
+	game->north.image.address = NULL;
+	game->south.image.address = NULL;
+	game->west.image.address = NULL;
+	game->east.image.address = NULL;
 }
 
 
@@ -139,10 +144,12 @@ static void	init_ray(t_game *game)
 
 int init_game(t_game *game, int fd)
 {
+	game -> mlx = NULL;
+	game -> mlx_win = NULL;
 	game -> file = read_map(fd);
+	game -> map = NULL;
 	game -> width = 0;
 	game -> height = 0;
-	game -> map = NULL;
 	game -> floor = NULL;
 	game -> ceiling = NULL;
 	game -> floor_colour = 0;

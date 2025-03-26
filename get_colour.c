@@ -35,11 +35,11 @@ static void check_rgb(char **rgb, t_game *game)
 	while (rgb[i])
 	{
 		if (rgb[i] && !only_digits(rgb[i]))
-			clean(game, rgb, "Invlaid rgb values\n");
+			clean(game, NULL, "Invlaid rgb values\n");
 		i++;
 	}
 	if (i != 3)
-		clean(game, rgb, "Invlaid rgb values\n");
+		clean(game, NULL, "Invlaid rgb values\n");
 }
 
 void get_colour(t_game *game, char **dir, t_direction type)

@@ -29,7 +29,11 @@
 // 			printf("[%s]\n", game -> map[i++]);
 // 	}
 // }
-
+static int end_game(t_game *game)
+{
+	clean(game, NULL, NULL);
+	return (0);
+}
 
 static void the_game(t_game *game, int fd)
 {
@@ -42,9 +46,9 @@ static void the_game(t_game *game, int fd)
 	mlx_hook(game->mlx_win, 2, 1L << 0, key_press, game);
     mlx_hook(game->mlx_win, 3, 1L << 1, key_release, game);
 	mlx_loop_hook(game->mlx, update, game);
+	mlx_hook(game -> mlx_win, 17, 0, end_game, game);
 	mlx_loop(game->mlx);
-	//print_game(game);
-//	clean(game,NULL,NULL);
+	clean(game,NULL,NULL);
 }
 int main(int argc, char **argv)
 {

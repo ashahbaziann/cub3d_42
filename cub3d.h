@@ -26,7 +26,7 @@
 # define FOV	60
 # define NUM_RAYS 120
 # define S_W 2600
-# define S_H 1600
+# define S_H 1800
 # define W 119
 # define A 97
 # define S 115
@@ -72,6 +72,8 @@ typedef struct s_texture
 {
 	char	*path;
 	t_image	image;
+	int		x;
+	int		y;
 }	t_texture;
 
 

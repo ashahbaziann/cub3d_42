@@ -19,7 +19,7 @@ static void rotate_player(t_game *game, int delta)
    (void)delta;
     double old_dx;
     double old_plane_x; 
-    double rotspeed = ROT_SPEED;
+    double rotspeed = 0.1;
             
     if (game ->player.rot_left)
         rotspeed *= -1;
@@ -60,11 +60,9 @@ int update(t_game *game)
     double current_time = get_time_in_ms();
     double delta_time = (current_time - last_time) / 1000.0;
     last_time = current_time;
-
-    if (game ->player.exit)
+    if (game->player.exit)
     {
-        mlx_destroy_window(game->mlx, game->mlx_win);
-        //game_free(game);
+        clean(game, NULL, NULL);
         exit(0);
     }
 	if (game->player.rot_left || game->player.rot_right)

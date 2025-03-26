@@ -21,8 +21,6 @@ void	init_window(t_game *game)
 			S_H, "cub_3d");
 	if (!game -> mlx_win)
 		clean(game, NULL, "Couldn't create window!\n");
-	//mlx_do_key_autorepeaton(game->mlx);
-
 }
 void	init_image(t_game *game)
 {
@@ -30,5 +28,4 @@ void	init_image(t_game *game)
 	game -> img.address = mlx_get_data_addr(game -> img.img, &game -> img.bpp, &game -> img.line_length, &game -> img.endian);
 	game -> img.width = S_W;
 	game -> img.height = S_H;
-	printf("Game width: %d, height: %d\n", S_W, S_H);
 }
