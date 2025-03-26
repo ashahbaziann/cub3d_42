@@ -57,6 +57,23 @@ void	map_free(char **map)
 void	game_free(t_game *game)
 {
 	map_free(game->map);
+	//map_free(game->file);
+	free_line(game -> floor, game -> ceiling);
+	free_line(game -> north.path, game -> south.path);
+	free_line(game -> west.path, game -> east.path);
+	// free_line(game -> north.image.img, game->north.image.address);
+	// free_line(game -> south.image.img, game->south.image.address);
+	// free_line(game -> west.image.img, game->west.image.address);
+	// free_line(game -> east.image.img, game->east.image.address);
+	if (game->north.image.img)
+		mlx_destroy_image(game->mlx, game->north.image.img);
+	if (game->south.image.img)
+		mlx_destroy_image(game->mlx, game->south.image.img);
+	if (game->west.image.img)
+		mlx_destroy_image(game->mlx, game->west.image.img);
+	if (game->east.image.img)
+		mlx_destroy_image(game->mlx, game->east.image.img);
+	//mlx_destroy_display(game->mlx);
 	if (game -> mlx_win)
 		mlx_destroy_window(game -> mlx, game -> mlx_win);
 	if (game)
@@ -67,14 +84,12 @@ void	game_free(t_game *game)
 }
 void	clean(t_game *game, char **map, char *str)
 {
+	(void)game;
 	if (map)
 		map_free(map);
-	free_line(game -> floor, game -> ceiling);
-	free_line(game -> north.path , game -> south.path);
-	free_line(game -> west.path , game -> east.path);
 	// if (game)
 	// 	game_free(game);
 	map = NULL;
-	game = NULL;
+	//game = NULL;
 	error(str, NULL);
 }

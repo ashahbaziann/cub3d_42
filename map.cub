@@ -1,7 +1,7 @@
 NO ./textures/bluestone.xpm
-SO ./textures/bluestone.xpm
-WE ./textures/bluestone.xpm
-EA ./textures/bluestone.xpm
+SO ./textures/greystone.xpm
+WE ./textures/redbrick.xpm
+EA ./textures/purplestone.xpm
 
 F 0,0,0
 
@@ -12,7 +12,7 @@ C 155,161,157
 11111111111111111111
 10000000000000000001
 10000000000000000001
-100000000S0000000001
+100000000N0000000001
 10000000000000000001
 10010001000000000001
 10000000000100000001

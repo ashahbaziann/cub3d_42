@@ -131,11 +131,9 @@ typedef enum
 	C,
 } t_direction;
 
-
+//update
 int update(t_game *game);
 
-//handle_movement
-int	handle_movement(int keycode, t_game *game);
 //error
 void	error(char *str, char *str2);
 void	free_line(char	*line1, char *line2);
@@ -172,11 +170,11 @@ int		textures_all_set(t_game *game);
 int		is_player(char c);
 
 //validate_args
-int validate_args(int argc, char **argv);
+int		validate_args(int argc, char **argv);
 
 //init_game
-int init_game(t_game *game, int fd);
-void fill_file(char **map);
+int		init_game(t_game *game, int fd);
+void	fill_file(char **map);
 
 //split
 char	**split(char const *s, char c);
@@ -186,16 +184,17 @@ size_t	count_words(char const *s, char c);
 char	**read_map(int fd);
 
 //map_integrity
-void map_parsing(t_game *game);
+void	map_parsing(t_game *game);
 
 //validate_textures
 void	validate_textures(t_game *game);
 
 //get_colour
-void get_colour(t_game *game, char **dir, t_direction type);
+void	get_colour(t_game *game, char **dir, t_direction type);
 
 //init_window
 void	init_window(t_game *game);
+void	init_image(t_game *game);
 
 //////////////////////////////////////////////////////
 
@@ -204,12 +203,19 @@ void	init_window(t_game *game);
 void draw_square(t_game *game, int x, int y, int size, int color);
 void draw_player(t_game *game, int x, int y, int size, int color);
 void my_mlx_pixel_put(t_image *img, int x, int y, int color);
-void draw_direction(t_game *game, int color);
 void draw_map(t_game *game);
 void raycast(t_game *game);
 
-
+//events
 int key_press(int keycode, t_game *game);
 int key_release(int keycode, t_game *game);
 
+
+//load_textures
+void load_textures(t_game *game);
+
+
+//draw
+void draw_wall(t_game *game, int x, t_ray *ray);
+void draw_ceiling_and_floor(t_game *game,int x, t_ray *ray);
 #endif

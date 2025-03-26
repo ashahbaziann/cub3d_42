@@ -61,7 +61,7 @@ void perform_dda(t_game *game, t_ray *ray)
 			|| ray->map_y > game->height - 0.25
 			|| ray->map_x > game->width - 1.25)
 			break ;
-        if (game ->map[ray->map_y][ray->map_x] == '1' )
+        if (game->map[ray->map_y][ray->map_x] == '1' )
             ray->hit = 1;
     }
 }
@@ -70,7 +70,7 @@ void perform_dda(t_game *game, t_ray *ray)
 static void calculate_wall_height(t_game *game, t_ray *ray)
 {
     if (ray->side == 0)
-       ray->wall_dist = (ray->map_x - game->player.x + (1 - ray->step_x) / 2) / ray->dir_x;
+        ray->wall_dist = (ray->map_x - game->player.x + (1 - ray->step_x) / 2) / ray->dir_x;
     else
         ray->wall_dist = (ray->map_y - game->player.y + (1 - ray->step_y) / 2) / ray->dir_y;
     ray->line_height = (int)(S_H/ ray->wall_dist);
@@ -86,54 +86,6 @@ static void calculate_wall_height(t_game *game, t_ray *ray)
 		ray->wall_x = game->player.x + ray->wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
 }
-//unsigned int get_pixel_color(t_image *img, int x, int y)
-//{
-//   if (x < 0 || x >= S_W || y < 0 || y >= S_H)
-//        return 0;
-//    int pixel = (y * img->line_length) + (x * (img->bpp / 8));
-//    return *(unsigned int *)(img->address + pixel);
-//}
-
-
-void draw_wall(t_game *game, int x, t_ray *ray)
-{
-    int y;
-   // unsigned int color;
- //   int tex_x;
-
- //   tex_x = (int)(ray->wall_x * game->north.image.width);
-
-    y = ray->draw_start;
-    while (y < ray->draw_end)
-    {
-      //  int tex_y = (int)((y - ray->draw_start) * game->north.image.height / ray->line_height);
-     //   color = get_pixel_color(&game->north.image, tex_x, tex_y);
-        my_mlx_pixel_put(&game->img, x, y, 0);
-        y++;
-    }
-}
-
-
-static void draw_ceiling_and_floor(t_game *game,int x, t_ray *ray)
-{
-
-    int i;
-
-    i = 0;
-    while (i < ray->draw_start)
-    {
-        my_mlx_pixel_put(&game->img, x, i, game->ceiling_colour);
-        i++;
-    }
-    i = ray->draw_end;
-    while(i < S_H)
-    {
-        my_mlx_pixel_put(&game->img, x, i, game->floor_colour);
-        i++;
-    }
-}
-
-
 void raycast(t_game *game)
 {
     int x;

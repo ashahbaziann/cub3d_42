@@ -13,18 +13,11 @@
 #include "cub3d.h"
 
 
-
 static void get_value(t_game *game, char **dir, char *line, t_direction type)
 {
-	t_texture *texture = malloc(sizeof(t_texture));
-	if (texture == NULL)
-	{
-		printf("Error: Failed to allocate memory for texture\n");
-		exit(1);
-	}
-
 	char	**arr;
 
+	arr = NULL;
 	if (count_words(line, ' ') != 2)
 		clean(game, NULL, "Invalid arguments for textures\n");
 	arr = split(line, ' ');
@@ -35,11 +28,7 @@ static void get_value(t_game *game, char **dir, char *line, t_direction type)
 	map_free(arr);
 	if (type == F || type == C)
 		get_colour(game, dir, type);
-	//open_path(game, dir);
 }
-
-
-
 
 static int empty_map(t_game *game)
 {

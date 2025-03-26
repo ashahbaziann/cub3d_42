@@ -14,7 +14,7 @@ NAME = cub3d
 
 RM = rm -f
 
-CFLAGS = -Wall -Werror -Wextra -g3 -I.  -Imlx #-g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -I.  -Imlx -g3 -fsanitize=address
 
 SRCS =  main.c \
 		error.c \
@@ -32,10 +32,11 @@ SRCS =  main.c \
 		validate_textures.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
-		handle_movement.c \
+		update.c \
 		raycast.c \
 		events.c \
-
+		load_textures.c \
+		draw.c \
 
 OBJS = $(SRCS:.c=.o)
 
