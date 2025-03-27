@@ -46,10 +46,12 @@ static void the_game(t_game *game, int fd)
 	mlx_hook(game->mlx_win, 2, 1L << 0, key_press, game);
     mlx_hook(game->mlx_win, 3, 1L << 1, key_release, game);
 	mlx_loop_hook(game->mlx, update, game);
-	mlx_hook(game -> mlx_win, 17, 0, end_game, game);
-	mlx_loop(game->mlx);
+	mlx_hook(game->mlx_win, 17, 0, end_game, game);
+	if (game->mlx_win)
+		mlx_loop(game->mlx);
 	clean(game,NULL,NULL);
 }
+
 int main(int argc, char **argv)
 {
 	t_game	game;

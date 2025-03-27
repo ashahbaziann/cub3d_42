@@ -15,13 +15,13 @@
 void	error(char *str, char *str2)
 {
 	if (!str)
-		return ;
+		exit (0);
 	while (*str)
 		write (STDERR_FILENO, str++, 1);
 	if (str2)
 		free(str2);
 	str2 = NULL;
-	exit (1);
+	exit (0);
 }
 
 void	free_line(char	*line1, char *line2)
@@ -70,23 +70,24 @@ void	game_free(t_game *game)
 		mlx_destroy_image(game->mlx, game->east.image.img);
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);	
-	if (game -> mlx_win)
+	if (game->mlx_win)
 	{
+		mlx_clear_window(game->mlx, game->mlx_win);
 		mlx_destroy_window(game -> mlx, game -> mlx_win);
 		game ->mlx_win = NULL;
 	}
-	if (game ->mlx)
+	if(game->mlx)
 	{
 		mlx_destroy_display(game->mlx);
-		//game->mlx= NULL;
+		free(game->mlx);
+		game->mlx = NULL;
 	}
 }
 void	clean(t_game *game, char **map, char *str)
 {
 	(void)map;
+	(void)str;
 	if (game)
 		game_free(game);
-	// free(game);
-	// game = NULL;
 	error(str, NULL);
 }
