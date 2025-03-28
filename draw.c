@@ -2,8 +2,8 @@
 
 static unsigned int get_pixel_color(t_image *img, int x, int y)
 {
-    if (x < 0.25 || x >= S_W - 1.25 || y < 0.25 || y >= S_H - 0.25)
-        return 0;
+    // if (x < 0.25 || x >= S_W - 1.25 || y < 0.25 || y >= S_H - 0.25)
+    //     return 0;
     int pixel = (y * img->line_length) + (x * (img->bpp / 8));
     return *(unsigned int *)(img->address + pixel);
 }
@@ -44,13 +44,14 @@ void draw_wall(t_game *game, int x, t_ray *ray)
     unsigned int color;
     int tex_x;
     t_image *img;
-
+    
     img = get_dir(game, &game->ray);
     tex_x = (int)(ray->wall_x * img->width);
     double tex_pos = (ray->draw_start - (S_H / 2) + (ray->line_height / 2)) * (double)img->height / ray->line_height;
     if (tex_pos < 0) 
-        tex_pos = 0;
+    tex_pos = 0;
     y = ray->draw_start;
+    printf("start  %f end %f \n", ray->draw_start, ray->draw_end);
     while (y < ray->draw_end)
     {
        int tex_y = (int)tex_pos;

@@ -39,14 +39,14 @@ static int is_valid_char(char c)
 
 static void set_player(t_game *game, int i, int j)
 {
-	if (game -> player.count > 1)
-		clean(game, NULL, "More than one player!\n");
+	// if (game -> player.count > 1 || game ->player.count == 0)
+	// 	clean(game, NULL, "More than one or absolute no player!\n");
 	if (is_player(game -> map[i][j]))
 	{
 		game -> player.count++;
-		if (game -> map[i][j] == 'N') //sever
+		if (game -> map[i][j] == 'N')
 			game -> player.angle = 3 * M_PI / 2;
-		else if (game -> map[i][j] == 'S') //ug
+		else if (game -> map[i][j] == 'S')
 			game -> player.angle = M_PI / 2;
 		else if (game -> map[i][j] == 'W')
 			game -> player.angle = 0;
@@ -58,7 +58,6 @@ static void set_player(t_game *game, int i, int j)
 		game -> player.dy = sin(game -> player.angle);
 		game->player.plane_x = -game->player.dy * 0.66;
 		game->player.plane_y = game->player.dx * 0.66;
-
 	}
 }
 void map_parsing(t_game *game)
@@ -88,3 +87,5 @@ void map_parsing(t_game *game)
 		i++;
 	}
 }
+
+

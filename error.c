@@ -86,7 +86,7 @@ void	game_free(t_game *game)
 void	clean(t_game *game, char **map, char *str)
 {
 	(void)map;
-	(void)str;
+	//(void)str;
 	if (game)
 		game_free(game);
 	error(str, NULL);

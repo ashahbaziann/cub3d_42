@@ -40,6 +40,8 @@ static void the_game(t_game *game, int fd)
 	init_game(game, fd);
 	validate_textures(game);
 	map_parsing(game);
+	if (game -> player.count > 1 || game ->player.count == 0)
+		clean(game, NULL, "More than one or absolute no player!\n");
 	init_window(game);
 	init_image(game);
 	load_textures(game);

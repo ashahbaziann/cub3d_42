@@ -154,6 +154,8 @@ int init_game(t_game *game, int fd)
 	game -> ceiling = NULL;
 	game -> floor_colour = 0;
 	game -> ceiling_colour = 0;
+	game -> img.img = NULL;
+	game -> img.address = NULL;
 	init_textures(game);
 	init_player(game);
 	init_ray(game);

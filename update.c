@@ -14,9 +14,9 @@ static void move_player(t_game *game, double dir_x, double dir_y)
 }
 
 
-static void rotate_player(t_game *game, int delta)
+static void rotate_player(t_game *game)
 {
-   (void)delta;
+   //(void)delta;
     double old_dx;
     double old_plane_x; 
     double rotspeed = 0.1;
@@ -34,9 +34,9 @@ static void rotate_player(t_game *game, int delta)
 }
 
 
-static void move_to_direction(t_game *game, double delta)
+static void move_to_direction(t_game *game)
 {
-    (void)delta;
+    //(void)delta;
     if (game->player.move_forward)
 		move_player(game, game -> player.dx * SPEED , game -> player.dy * SPEED);
 	else if (game->player.move_backward)
@@ -48,26 +48,26 @@ static void move_to_direction(t_game *game, double delta)
 }
 
 
-double get_time_in_ms(void)
-{
-    struct timeval time;
-    gettimeofday(&time, NULL);
-    return (time.tv_sec * 1000.0) + (time.tv_usec / 1000.0);
-}
+// double get_time_in_ms(void)
+// {
+//     struct timeval time;
+//     gettimeofday(&time, NULL);
+//     return (time.tv_sec * 1000.0) + (time.tv_usec / 1000.0);
+// }
 int update(t_game *game)
 {
-	static double last_time;
-    double current_time = get_time_in_ms();
-    double delta_time = (current_time - last_time) / 1000.0;
-    last_time = current_time;
+	// static double last_time;
+    // double current_time = get_time_in_ms();
+    // double delta_time = (current_time - last_time) / 1000.0;
+    // last_time = current_time;
     if (game->player.exit)
     {
         clean(game, NULL, NULL);
         exit(0);
     }
 	if (game->player.rot_left || game->player.rot_right)
-		rotate_player(game, delta_time);
-    move_to_direction(game,delta_time);
+		rotate_player(game);
+    move_to_direction(game);
 	raycast(game);
 	return (0);
 }

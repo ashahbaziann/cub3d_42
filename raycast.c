@@ -9,6 +9,11 @@ static void init_ray(t_game *game, t_ray *ray, double camera_x)
     ray->map_x = (int)(game->player.x);
     ray->map_y = (int)(game->player.y);
 
+    //     if (fabs(ray->dir_x) < 1e-6)
+    //     ray->dir_x = (ray->dir_x < 0) ? -1e-6 : 1e-6;
+    // if (fabs(ray->dir_y) < 1e-6)
+    //     ray->dir_y = (ray->dir_y < 0) ? -1e-6 : 1e-6;
+
     ray->delta_x = fabs(1 / ray->dir_x);
     ray->delta_y = fabs(1 / ray->dir_y);   
 }
@@ -73,6 +78,10 @@ static void calculate_wall_height(t_game *game, t_ray *ray)
         ray->wall_dist = (ray->map_x - game->player.x + (1 - ray->step_x) / 2) / ray->dir_x;
     else
         ray->wall_dist = (ray->map_y - game->player.y + (1 - ray->step_y) / 2) / ray->dir_y;
+    if (ray->wall_dist < 0.00001)
+        ray->wall_dist = 0.00001;
+    // if (ray->wall_dist > 10000) // Prevent extreme values
+    //     ray->wall_dist = 10000;
     ray->line_height = (int)(S_H/ ray->wall_dist);
     ray->draw_start = (-ray->line_height / 2 + S_H/ 2);
     if (ray->draw_start < 0)
