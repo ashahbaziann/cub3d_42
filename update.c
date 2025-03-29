@@ -6,6 +6,8 @@ static void move_player(t_game *game, double dir_x, double dir_y)
     int new_y ;
     new_x = (int)(game->player.x + dir_x);
     new_y = (int)(game->player.y + dir_y);
+     if (new_x < 0.25 || new_x >= S_W - 1.25 || new_y < 0.25 || new_y >= S_H - 0.25)
+        return ;
     if (game->map[new_y][new_x] != '1')
     {
         game->player.x += dir_x;

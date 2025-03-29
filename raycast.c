@@ -9,11 +9,6 @@ static void init_ray(t_game *game, t_ray *ray, double camera_x)
     ray->map_x = (int)(game->player.x);
     ray->map_y = (int)(game->player.y);
 
-    //     if (fabs(ray->dir_x) < 1e-6)
-    //     ray->dir_x = (ray->dir_x < 0) ? -1e-6 : 1e-6;
-    // if (fabs(ray->dir_y) < 1e-6)
-    //     ray->dir_y = (ray->dir_y < 0) ? -1e-6 : 1e-6;
-
     ray->delta_x = fabs(1 / ray->dir_x);
     ray->delta_y = fabs(1 / ray->dir_y);   
 }
@@ -66,7 +61,7 @@ void perform_dda(t_game *game, t_ray *ray)
 			|| ray->map_y > game->height - 0.25
 			|| ray->map_x > game->width - 1.25)
 			break ;
-        if (game->map[ray->map_y][ray->map_x] == '1' )
+        else if (game->map[ray->map_y][ray->map_x] == '1' )
             ray->hit = 1;
     }
 }
@@ -75,11 +70,11 @@ void perform_dda(t_game *game, t_ray *ray)
 static void calculate_wall_height(t_game *game, t_ray *ray)
 {
     if (ray->side == 0)
-        ray->wall_dist = (ray->map_x - game->player.x + (1 - ray->step_x) / 2) / ray->dir_x;
+        ray->wall_dist = ray->side_x - ray->delta_x;
     else
-        ray->wall_dist = (ray->map_y - game->player.y + (1 - ray->step_y) / 2) / ray->dir_y;
-    if (ray->wall_dist < 0.00001)
-        ray->wall_dist = 0.00001;
+        ray->wall_dist = ray->side_y - ray->delta_y;
+    if (ray->wall_dist < 0.1)
+       ray->wall_dist = 0.1;
     // if (ray->wall_dist > 10000) // Prevent extreme values
     //     ray->wall_dist = 10000;
     ray->line_height = (int)(S_H/ ray->wall_dist);
@@ -105,7 +100,7 @@ void raycast(t_game *game)
     game->img.address = mlx_get_data_addr(game->img.img, &game->img.bpp,&game->img.line_length, &game->img.endian);
     while (x < S_W)
     {
-        double camera_x = 2 * x / (double)(S_W - 1) - 1;
+        double camera_x = 2 * x / (double)S_W - 1;
         init_ray(game, &game->ray, camera_x);
         calculate_step(game, &game ->ray);
         perform_dda(game, &game ->ray);

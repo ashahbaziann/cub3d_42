@@ -35,7 +35,7 @@
 # define R_A 65363
 # define EXIT 65307
 # define SPEED 0.7
-# define ROT_SPEED 0.1
+# define ROT_SPEED 0.3
 
 typedef struct s_player
 {
@@ -72,8 +72,6 @@ typedef struct s_texture
 {
 	char	*path;
 	t_image	image;
-	int		x;
-	int		y;
 }	t_texture;
 
 
@@ -100,6 +98,13 @@ typedef struct s_ray
 	double	draw_end;
 }	t_ray;
 
+typedef	struct s_tex_info
+{
+	double	x;
+	double	y;
+	double	step;
+	double	pos;
+}	t_tex_info;
 
 typedef struct s_game
 {
@@ -119,6 +124,7 @@ typedef struct s_game
 	t_texture	east;
 	t_image		img;
 	t_ray		ray;
+	t_tex_info	tex;
 	t_player	player;
 } t_game;
 
