@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:31:53 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/30 18:49:49 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/30 19:26:37 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ static void	init_player(t_game *game)
 
 static void	init_ray(t_game *game)
 {
-	game -> ray.cameraX = 0;
-	game -> ray.cameraY = 0;
 	game -> ray.dir_x = 0;
 	game -> ray.dir_y = 0;
 	game -> ray.map_x = 0;

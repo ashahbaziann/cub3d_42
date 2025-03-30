@@ -6,21 +6,20 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/30 18:53:59 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/30 19:29:52 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <mlx.h>
-#include <math.h>
-#include <sys/time.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <mlx.h>
+# include <math.h>
+# include <sys/time.h>
 # include "gnl/get_next_line.h"
-
 
 # define SPRITE 32
 # define FOV	60
@@ -56,7 +55,6 @@ typedef struct s_player
 	int			rot_right;
 }	t_player;
 
-
 typedef struct s_image
 {
 	void	*img;
@@ -74,11 +72,8 @@ typedef struct s_texture
 	t_image	image;
 }	t_texture;
 
-
 typedef struct s_ray
 {
-	double	cameraX;
-	double	cameraY;
 	double	dir_x;
 	double	dir_y;
 	int		map_x;
@@ -98,7 +93,7 @@ typedef struct s_ray
 	double	draw_end;
 }	t_ray;
 
-typedef	struct s_tex_info
+typedef struct s_tex_info
 {
 	double	x;
 	double	y;
@@ -126,10 +121,9 @@ typedef struct s_game
 	t_ray		ray;
 	t_tex_info	tex;
 	t_player	player;
-} t_game;
+}	t_game;
 
-
-typedef enum
+typedef enum s_direction
 {
 	NO,
 	SO,
@@ -137,10 +131,10 @@ typedef enum
 	EA,
 	F,
 	C,
-} t_direction;
+}	t_direction;
 
 //update
-int update(t_game *game);
+int		update(t_game *game);
 
 //error
 void	error(char *str, char *str2);
@@ -163,7 +157,6 @@ int		height(char **map);
 int		width(char **map);
 int		max_column(char **map);
 
-
 //utils_2
 char	*ft_strrchr(char *s, int c);
 char	*ft_strnstr(char *haystack, char *needle, size_t len);
@@ -171,13 +164,13 @@ int		ft_strcmp(char *s1, char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *str);
 
-
 //utils_3
 char	*get_direction(t_direction type);
 int		textures_all_set(t_game *game);
 int		is_player(char c);
 void	ft_strcpy(char *dest, char *src, int len);
 t_image	*get_dir(t_game *game, t_ray *ray);
+
 //validate_args
 int		validate_args(int argc, char **argv);
 
@@ -205,26 +198,18 @@ void	get_colour(t_game *game, char **dir, t_direction type);
 void	init_window(t_game *game);
 void	init_image(t_game *game);
 
-//////////////////////////////////////////////////////
-
 //raycasting
-//void cast_ray(t_game *player);
-void draw_square(t_game *game, int x, int y, int size, int color);
-void draw_player(t_game *game, int x, int y, int size, int color);
-void my_mlx_pixel_put(t_image *img, int x, int y, int color);
-void draw_map(t_game *game);
-void raycast(t_game *game);
+void	my_mlx_pixel_put(t_image *img, int x, int y, int color);
+void	raycast(t_game *game);
 
 //events
-int key_press(int keycode, t_game *game);
-int key_release(int keycode, t_game *game);
-
+int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
 
 //load_textures
-void load_textures(t_game *game);
-
+void	load_textures(t_game *game);
 
 //draw
-void draw_wall(t_game *game, int x, t_ray *ray);
-void draw_ceiling_and_floor(t_game *game,int x, t_ray *ray);
+void	draw_wall(t_game *game, int x, t_ray *ray);
+void	draw_ceiling_and_floor(t_game *game, int x, t_ray *ray);
 #endif

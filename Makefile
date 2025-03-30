@@ -6,7 +6,7 @@
 #    By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/04 14:59:51 by ashahbaz          #+#    #+#              #
-#    Updated: 2025/03/11 14:58:31 by ashahbaz         ###   ########.fr        #
+#    Updated: 2025/03/30 19:23:47 by ashahbaz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,22 +30,28 @@ SRCS =  main.c \
 		map_parsing.c \
 		init_window.c \
 		validate_textures.c \
-		gnl/get_next_line.c \
-		gnl/get_next_line_utils.c \
 		update.c \
 		raycast.c \
 		events.c \
 		load_textures.c \
 		draw.c \
 
+GNL =	get_next_line.c \
+		get_next_line_utils.c \
+		
+SRCS_DIR = ./srcs/
+GNL_DIR = ./gnl/
+SRCS := $(addprefix $(SRCS_DIR), $(SRCS))
+GNL := $(addprefix $(GNL_DIR), $(GNL))
+SRCS := $(SRCS) $(GNL)
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)  Makefile cub3d.h
+$(NAME): $(OBJS)
 	cc $(CFLAGS) $(OBJS) -Lmlx -lmlx -lX11 -lXext -lm -o $(NAME)
 
-%.o:%.c Makefile $(HEADERS)
+%.o:%.c
 	cc $(CFLAGS) -c $< -o $@
 
 clean:
