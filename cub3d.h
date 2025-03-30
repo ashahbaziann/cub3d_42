@@ -34,8 +34,8 @@
 # define L_A 65361
 # define R_A 65363
 # define EXIT 65307
-# define SPEED 0.7
-# define ROT_SPEED 0.7
+# define SPEED 0.3
+# define ROT_SPEED 0.3
 
 typedef struct s_player
 {

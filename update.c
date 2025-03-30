@@ -2,18 +2,23 @@
 
 static void move_player(t_game *game, double dir_x, double dir_y)
 {
-    int new_x;
-    int new_y ;
-    new_x = (int)(game->player.x + dir_x);
-    new_y = (int)(game->player.y + dir_y);
-     if (new_x < 0.25 || new_x >= S_W - 1.25 || new_y < 0.25 || new_y >= S_H - 0.25)
-        return ;
-    if (game->map[new_y][new_x] != '1')
-    {
+    double new_x = game->player.x + dir_x;
+    double new_y = game->player.y + dir_y;
+
+    if (new_x < 0.25 || new_x >= S_W - 1.25 || new_y < 0.25 || new_y >= S_H - 0.25)
+            return ;
+    double buffer = 0.2;
+
+    if (game->map[(int)(game->player.y)][(int)(new_x + buffer)] != '1' &&
+        game->map[(int)(game->player.y)][(int)(new_x - buffer)] != '1')
         game->player.x += dir_x;
+    if (game->map[(int)(new_y + buffer)][(int)(game->player.x)] != '1' &&
+        game->map[(int)(new_y - buffer)][(int)(game->player.x)] != '1')
         game->player.y += dir_y;
-    }
 }
+
+
+
 
 
 static void rotate_player(t_game *game)
