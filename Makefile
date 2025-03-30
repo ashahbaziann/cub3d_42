@@ -14,7 +14,7 @@ NAME = cub3d
 
 RM = rm -f
 
-CFLAGS = -Wall -Werror -Wextra -g3 -I.  -Imlx -g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -I.  -Imlx #-g3 -fsanitize=address
 
 SRCS =  main.c \
 		error.c \

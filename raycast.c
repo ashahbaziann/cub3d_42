@@ -74,8 +74,8 @@ static void calculate_wall_height(t_game *game, t_ray *ray)
     else
         ray->wall_dist = (ray->map_y - game->player.y + (1 - ray->step_y) / 2) / ray->dir_y;
 
-    if (ray->wall_dist < 0.01)
-       ray->wall_dist = 0.01;
+    if (ray->wall_dist < 0.05)
+       ray->wall_dist = 0.05;
     // if (ray->wall_dist > 10000)
     //     ray->wall_dist = 10000;
     ray->line_height = (int)(S_H/ ray->wall_dist);
@@ -90,6 +90,12 @@ static void calculate_wall_height(t_game *game, t_ray *ray)
 	else
 		ray->wall_x = game->player.x + ray->wall_dist * ray->dir_x;
 	ray->wall_x -= floor(ray->wall_x);
+    printf("%f\n",ray->wall_x);
+    if (ray->wall_x < 0.001) // Prevent texture warping
+        ray->wall_x = 0.001;
+    if (ray->wall_x > 0.999)
+        ray->wall_x = 0.999;
+    
 }
 void raycast(t_game *game)
 {
