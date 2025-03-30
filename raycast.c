@@ -70,12 +70,13 @@ void perform_dda(t_game *game, t_ray *ray)
 static void calculate_wall_height(t_game *game, t_ray *ray)
 {
     if (ray->side == 0)
-        ray->wall_dist = ray->side_x - ray->delta_x;
+        ray->wall_dist = (ray->map_x - game->player.x + (1 - ray->step_x) / 2) / ray->dir_x;
     else
-        ray->wall_dist = ray->side_y - ray->delta_y;
-    if (ray->wall_dist < 0.1)
-       ray->wall_dist = 0.1;
-    // if (ray->wall_dist > 10000) // Prevent extreme values
+        ray->wall_dist = (ray->map_y - game->player.y + (1 - ray->step_y) / 2) / ray->dir_y;
+
+    if (ray->wall_dist < 0.01)
+       ray->wall_dist = 0.01;
+    // if (ray->wall_dist > 10000)
     //     ray->wall_dist = 10000;
     ray->line_height = (int)(S_H/ ray->wall_dist);
     ray->draw_start = (-ray->line_height / 2 + S_H/ 2);
