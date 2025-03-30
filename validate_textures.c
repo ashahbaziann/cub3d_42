@@ -6,14 +6,26 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:26:31 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/17 17:54:04 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:12:53 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void	open_file(t_game *game, char *dir)
+{
+	int	fd;
 
-static void get_value(t_game *game, char **dir, char *line, t_direction type)
+	fd = open(dir, O_RDONLY);
+	if (fd == -1)
+	{
+		close(fd);
+		clean(game, NULL, "Invalid textures\n");
+	}
+	close(fd);
+}
+
+static void	get_value(t_game *game, char **dir, char *line, t_direction type)
 {
 	char	**arr;
 
@@ -28,60 +40,64 @@ static void get_value(t_game *game, char **dir, char *line, t_direction type)
 	map_free(arr);
 	if (type == F || type == C)
 		get_colour(game, dir, type);
+	else
+		open_file(game, *dir);
 }
 
-static int empty_map(t_game *game)
+static int	empty_map(t_game *game)
 {
 	int	i;
 
 	i = 0;
-	if (game -> map)
+	if (game->map)
 	{
-		while (game -> map[i])
+		while (game->map[i])
 		{
-			if (!line_is_empty(game -> map[i]))
+			if (!line_is_empty(game->map[i]))
 				return (0);
 			i++;
 		}
 	}
 	return (1);
 }
-static void set_map(t_game *game, int i)
+
+static void	set_map(t_game *game, int i)
 {
-	if(!textures_all_set(game))
+	if (!textures_all_set(game))
 		clean(game, NULL, "Map is not set");
-	game -> map = &game -> file[i];
-	fill_file(game -> map);
-	if(empty_map(game))
+	game->map = &game->file[i];
+	fill_file(game->map);
+	if (empty_map(game))
 		clean(game, NULL, "Map is not set");
-	game -> width = width(game -> map);
-	game -> height = height(game -> map);
-	game -> img.width = game -> width;
-	game -> img.height = game -> height;
+	game->width = width(game->map);
+	game->height = height(game->map);
+	game->img.width = game->width;
+	game->img.height = game->height;
 }
+
 void	validate_textures(t_game *game)
 {
 	char	**file;
 	int		i;
 
 	i = 0;
-	file = game -> file;
+	file = game->file;
 	while (file[i])
 	{
 		if (textures_all_set(game))
 			break ;
 		if (ft_strnstr(file[i], "NO", ft_strlen(file[i])))
-			get_value(game, &game -> north.path, file[i], NO);
+			get_value(game, &game->north.path, file[i], NO);
 		if (ft_strnstr(file[i], "SO", ft_strlen(file[i])))
-			get_value(game, &game -> south.path, file[i], SO);
+			get_value(game, &game->south.path, file[i], SO);
 		if (ft_strnstr(file[i], "EA", ft_strlen(file[i])))
-			get_value(game, &game -> east.path, file[i], EA);
+			get_value(game, &game->east.path, file[i], EA);
 		if (ft_strnstr(file[i], "WE", ft_strlen(file[i])))
-			get_value(game, &game -> west.path, file[i], WE);
+			get_value(game, &game->west.path, file[i], WE);
 		if (ft_strnstr(file[i], "F", ft_strlen(file[i])))
-			get_value(game, &game -> floor, file[i], F);
+			get_value(game, &game->floor, file[i], F);
 		if (ft_strnstr(file[i], "C", ft_strlen(file[i])))
-			get_value(game, &game -> ceiling, file[i], C);
+			get_value(game, &game->ceiling, file[i], C);
 		i++;
 	}
 	set_map(game, i);

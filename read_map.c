@@ -6,13 +6,13 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:51:27 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/11 19:20:29 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:50:39 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	if_passed_textures(char	*line)
+static int	if_passed_textures(char *line)
 {
 	static int	count;
 
@@ -30,9 +30,10 @@ static int	if_passed_textures(char	*line)
 		count++;
 	return (count);
 }
+
 static void	double_new_line(char *line)
 {
-	int	i;
+	int			i;
 	static int	flag;
 
 	i = 0;
@@ -52,7 +53,7 @@ static void	double_new_line(char *line)
 		if (line[i] == '\n' && line[i + 1] == '\n' && flag == 1)
 			error("Validation failed!\n", line);
 		if (line[i] != '\0')
-		i++;
+			i++;
 	}
 }
 
@@ -60,7 +61,7 @@ static char	*check_line(char **new_line, char **line)
 {
 	*new_line = another_strtrim((*line), "\n");
 	if (!(*new_line))
-		free_line((*new_line), (*line));
+		free_line(&(*new_line), &(*line));
 	double_new_line((*new_line));
 	return ((*new_line));
 }
@@ -81,15 +82,15 @@ static char	*get_the_line(int fd)
 		check = ft_strtrim(tmp, " \n\t\v");
 		if (!check)
 		{
-			free_line(tmp, check);
+			free_line(&tmp, &check);
 			error("Validation failed!\n", line);
 		}
 		line = ft_strjoin(line, check);
-		free_line(tmp, check);
+		free_line(&tmp, &check);
 		if (!line)
 			error("Validation failed!\n", line);
 	}
-	free_line(tmp, NULL);
+	free_line(&tmp, NULL);
 	return (line);
 }
 
@@ -104,17 +105,17 @@ char	**read_map(int fd)
 	map = NULL;
 	line = get_the_line(fd);
 	if (!line || line_is_empty(line))
-		error ("Validation failed!\n", line);
+		error("Validation failed!\n", line);
 	new = check_line(&new, &line);
 	if (!new)
-		free_line(line, new);
-	free_line(line, NULL);
+		free_line(&line, &new);
+	free_line(&line, NULL);
 	map = split(new, '\n');
 	if (!map)
 	{
-		free_line(line, new);
+		free_line(&line, &new);
 		clean(NULL, map, "Validation failed!\n");
 	}
-	free_line(new, NULL);
+	free_line(&new, NULL);
 	return (map);
 }

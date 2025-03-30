@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:47:07 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/06 18:58:15 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:56:37 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*ft_strdup(char *s1)
 	str[i] = '\0';
 	return (str);
 }
+
 int	line_is_empty(char *str)
 {
 	if (!str)

@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 16:40:25 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/11 16:33:31 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:57:14 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	*ft_strrchr(char *s, int c)
 	}
 	return (NULL);
 }
+
 char	*ft_strnstr(char *haystack, char *needle, size_t len)
 {
 	size_t	i;
@@ -73,6 +74,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		i++;
 	return ((unsigned char )(s1[i]) - (unsigned char )(s2[i]));
 }
+
 int	ft_atoi(const char *str)
 {
 	int	i;

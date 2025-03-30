@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/10 12:50:06 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:53:59 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 # define L_A 65361
 # define R_A 65363
 # define EXIT 65307
-# define SPEED 0.3
-# define ROT_SPEED 0.3
+# define SPEED 0.2
+# define ROT_SPEED 0.2
 
 typedef struct s_player
 {
@@ -144,7 +144,7 @@ int update(t_game *game);
 
 //error
 void	error(char *str, char *str2);
-void	free_line(char	*line1, char *line2);
+void	free_line(char	**line1, char **line2);
 void	map_free(char **map);
 void	game_free(t_game *game);
 void	clean(t_game *game, char **copy, char *str);
@@ -176,7 +176,8 @@ int		ft_atoi(const char *str);
 char	*get_direction(t_direction type);
 int		textures_all_set(t_game *game);
 int		is_player(char c);
-
+void	ft_strcpy(char *dest, char *src, int len);
+t_image	*get_dir(t_game *game, t_ray *ray);
 //validate_args
 int		validate_args(int argc, char **argv);
 

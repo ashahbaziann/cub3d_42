@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:24:26 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/06 18:42:40 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:59:16 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,15 @@ static int	valid_argv(char *str1, char *str2)
 	return (0);
 }
 
-int validate_args(int argc, char **argv)
+int	validate_args(int argc, char **argv)
 {
 	int	fd;
 
 	fd = 0;
 	if (argc != 2 || !valid_argv(argv[1], ".cub"))
-		return (error("Invalid arguments!\n", NULL) , -1);
+		return (error("Invalid arguments!\n", NULL), -1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (error("Invalid file descriptor!\n", NULL), -1);
 	return (fd);
 }
-
-

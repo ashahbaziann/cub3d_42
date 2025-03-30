@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:52:17 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/17 13:59:52 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/30 18:52:01 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,36 @@
 void	error(char *str, char *str2)
 {
 	if (!str)
-		exit (0);
+		exit(0);
 	while (*str)
-		write (STDERR_FILENO, str++, 1);
+		write(STDERR_FILENO, str++, 1);
 	if (str2)
 		free(str2);
 	str2 = NULL;
-	exit (0);
+	exit(0);
 }
 
-void	free_line(char	*line1, char *line2)
+void	free_line(char **line1, char **line2)
 {
 	if (line1)
 	{
-		free (line1);
-		line1 = NULL;
+		free(*line1);
+		*line1 = NULL;
 	}
 	if (line2)
 	{
-		free (line2);
-		line2 = NULL;
+		free(*line2);
+		*line2 = NULL;
 	}
 }
+
 void	map_free(char **map)
 {
 	int	i;
 
 	i = 0;
 	if (!map)
-		return;
+		return ;
 	while (map[i])
 	{
 		free(map[i]);
@@ -57,9 +58,9 @@ void	game_free(t_game *game)
 {
 	map_free(game->file);
 	game->file = NULL;
-	free_line(game -> floor, game -> ceiling);
-	free_line(game -> north.path, game -> south.path);
-	free_line(game -> west.path, game -> east.path);
+	free_line(&game->floor, &game->ceiling);
+	free_line(&game->north.path, &game->south.path);
+	free_line(&game->west.path, &game->east.path);
 	if (game->north.image.img)
 		mlx_destroy_image(game->mlx, game->north.image.img);
 	if (game->south.image.img)
@@ -69,25 +70,27 @@ void	game_free(t_game *game)
 	if (game->east.image.img)
 		mlx_destroy_image(game->mlx, game->east.image.img);
 	if (game->img.img)
-		mlx_destroy_image(game->mlx, game->img.img);	
-	if (game->mlx_win)
-	{
-		mlx_clear_window(game->mlx, game->mlx_win);
-		mlx_destroy_window(game -> mlx, game -> mlx_win);
-		game ->mlx_win = NULL;
-	}
-	if(game->mlx)
-	{
-		mlx_destroy_display(game->mlx);
-		free(game->mlx);
-		game->mlx = NULL;
-	}
+		mlx_destroy_image(game->mlx, game->img.img);
 }
+
 void	clean(t_game *game, char **map, char *str)
 {
 	(void)map;
-	//(void)str;
 	if (game)
+	{
 		game_free(game);
+		if (game->mlx_win)
+		{
+			mlx_clear_window(game->mlx, game->mlx_win);
+			mlx_destroy_window(game->mlx, game->mlx_win);
+			game->mlx_win = NULL;
+		}
+		if (game->mlx)
+		{
+			mlx_destroy_display(game->mlx);
+			free(game->mlx);
+			game->mlx = NULL;
+		}
+	}
 	error(str, NULL);
 }

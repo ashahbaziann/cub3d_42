@@ -1,80 +1,78 @@
-# include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/30 17:05:39 by ashahbaz          #+#    #+#             */
+/*   Updated: 2025/03/30 17:56:09 by ashahbaz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static void move_player(t_game *game, double dir_x, double dir_y)
+#include "cub3d.h"
+
+static void	move_player(t_game *game, double dir_x, double dir_y)
 {
-    double new_x = game->player.x + dir_x;
-    double new_y = game->player.y + dir_y;
+	double	n_x;
+	double	n_y;
+	double	buffer;
 
-    if (new_x < 0.25 || new_x >= S_W - 1.25 || new_y < 0.25 || new_y >= S_H - 0.25)
-            return ;
-    double buffer = 0.2;
-
-    if (game->map[(int)(game->player.y)][(int)(new_x + buffer)] != '1' &&
-        game->map[(int)(game->player.y)][(int)(new_x - buffer)] != '1')
-        game->player.x += dir_x;
-    if (game->map[(int)(new_y + buffer)][(int)(game->player.x)] != '1' &&
-        game->map[(int)(new_y - buffer)][(int)(game->player.x)] != '1')
-        game->player.y += dir_y;
+	n_x = game->player.x + dir_x;
+	n_y = game->player.y + dir_y;
+	buffer = 0.2;
+	if (n_x < 0.25 || n_x >= S_W - 1.25 || n_y < 0.25 || n_y >= S_H - 0.25)
+		return ;
+	if (game->map[(int)(game->player.y)][(int)(n_x + buffer)] != '1'
+		&& game->map[(int)(game->player.y)][(int)(n_x - buffer)] != '1')
+		game->player.x += dir_x;
+	if (game->map[(int)(n_y + buffer)][(int)(game->player.x)] != '1'
+		&& game->map[(int)(n_y - buffer)][(int)(game->player.x)] != '1')
+		game->player.y += dir_y;
 }
 
-
-
-
-
-static void rotate_player(t_game *game)
+static void	rotate_player(t_game *game)
 {
-   //(void)delta;
-    double old_dx;
-    double old_plane_x; 
-    double rotspeed = 0.1;
-            
-    if (game ->player.rot_left)
-        rotspeed *= -1;
+	double		old_dx;
+	double		old_plane_x;
+	double		speed;
+	t_player	*player;
 
-    old_dx = game->player.dx;
-    game->player.dx = game->player.dx * cos(rotspeed) - game->player.dy * sin(rotspeed);
-    game->player.dy = old_dx * sin(rotspeed) + game->player.dy * cos(rotspeed);
-
-    old_plane_x = game->player.plane_x;
-    game->player.plane_x = game->player.plane_x * cos(rotspeed) - game->player.plane_y * sin(rotspeed);
-    game->player.plane_y = old_plane_x * sin(rotspeed) + game->player.plane_y * cos(rotspeed);
+	speed = 0.1;
+	player = &game->player;
+	if (player->rot_left)
+		speed *= -1;
+	old_dx = player->dx;
+	player->dx = player->dx * cos(speed) - player->dy * sin(speed);
+	player->dy = old_dx * sin(speed) + player->dy * cos(speed);
+	old_plane_x = player->plane_x;
+	player->plane_x = player->plane_x * cos(speed) - player->plane_y
+		* sin(speed);
+	player->plane_y = old_plane_x * sin(speed) + player->plane_y * cos(speed);
 }
 
-
-static void move_to_direction(t_game *game)
+static void	move_to_direction(t_game *game)
 {
-    //(void)delta;
-    if (game->player.move_forward)
-		move_player(game, game -> player.dx * SPEED , game -> player.dy * SPEED);
+	if (game->player.move_forward)
+		move_player(game, game->player.dx * SPEED, game->player.dy * SPEED);
 	else if (game->player.move_backward)
-		move_player(game, -game -> player.dx * SPEED , -game -> player.dy * SPEED);
+		move_player(game, -game->player.dx * SPEED, -game->player.dy * SPEED);
 	else if (game->player.move_left)
-		move_player(game, game -> player.dy * SPEED , -game -> player.dx * SPEED);
+		move_player(game, game->player.dy * SPEED, -game->player.dx * SPEED);
 	else if (game->player.move_right)
-		move_player(game, -game -> player.dy * SPEED , game -> player.dx * SPEED);
+		move_player(game, -game->player.dy * SPEED, game->player.dx * SPEED);
 }
 
-
-// double get_time_in_ms(void)
-// {
-//     struct timeval time;
-//     gettimeofday(&time, NULL);
-//     return (time.tv_sec * 1000.0) + (time.tv_usec / 1000.0);
-// }
-int update(t_game *game)
+int	update(t_game *game)
 {
-	// static double last_time;
-    // double current_time = get_time_in_ms();
-    // double delta_time = (current_time - last_time) / 1000.0;
-    // last_time = current_time;
-    if (game->player.exit)
-    {
-        clean(game, NULL, NULL);
-        exit(0);
-    }
+	if (game->player.exit)
+	{
+		clean(game, NULL, NULL);
+		exit(0);
+	}
 	if (game->player.rot_left || game->player.rot_right)
 		rotate_player(game);
-    move_to_direction(game);
+	move_to_direction(game);
 	raycast(game);
 	return (0);
 }

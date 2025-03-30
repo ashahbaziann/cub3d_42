@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:57:51 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/02/10 15:03:52 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/30 17:58:31 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	is_whitespace(char c)
 		return (1);
 	return (0);
 }
+
 char	*substr_alter(char const *s, unsigned int start, size_t len)
 {
 	char	*str;
@@ -40,6 +41,7 @@ char	*substr_alter(char const *s, unsigned int start, size_t len)
 	str[len + 1] = '\0';
 	return (str);
 }
+
 int	height(char **map)
 {
 	int	i;
@@ -63,29 +65,32 @@ int	width(char **map)
 		i++;
 	return (i);
 }
-int max_column(char **map)
+
+int	max_column(char **map)
 {
-    int i = 0;
-    int max_length = 0;
-	int j = 0;
-	int tab = 0;
+	int	i;
+	int	max_length;
+	int	j;
+	int	tab;
 
-
-    while (map[i] != NULL)
-    {
+	i = 0;
+	max_length = 0;
+	j = 0;
+	tab = 0;
+	while (map[i] != NULL)
+	{
 		j = 0;
-        while (map[i][j] != '\0')
-        {
+		while (map[i][j] != '\0')
+		{
 			if (map[i][j] == '\t')
 				tab += 3;
-            j++;
-        }
-        if (j + tab > max_length)
-        {
-            max_length = j + tab;
-        }
-
-        i++;
-    }
-    return max_length;
+			j++;
+		}
+		if (j + tab > max_length)
+		{
+			max_length = j + tab;
+		}
+		i++;
+	}
+	return (max_length);
 }
