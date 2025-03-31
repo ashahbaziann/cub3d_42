@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/30 19:29:52 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:10:57 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_game
 	char		*ceiling;
 	int			floor_colour;
 	int			ceiling_colour;
+	int			move_flag;
 	t_texture	north;
 	t_texture	south;
 	t_texture	west;

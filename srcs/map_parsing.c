@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:23:24 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/30 18:04:04 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:10:28 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	set_player(t_game *game, int i, int j)
 	if (is_player(game->map[i][j]))
 	{
 		game->player.count++;
+		game->move_flag = 1;
 		if (game->map[i][j] == 'N')
 			game->player.angle = 3 * M_PI / 2;
 		else if (game->map[i][j] == 'S')

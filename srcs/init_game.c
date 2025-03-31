@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:31:53 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/30 19:26:37 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:11:18 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	init_game(t_game *game, int fd)
 	game -> ceiling = NULL;
 	game -> floor_colour = 0;
 	game -> ceiling_colour = 0;
+	game -> move_flag = 0;
 	game -> img.img = NULL;
 	game -> img.address = NULL;
 	game -> tex.x = 0;
