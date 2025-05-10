@@ -6,15 +6,15 @@
 #    By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/04 14:59:51 by ashahbaz          #+#    #+#              #
-#    Updated: 2025/03/31 16:23:59 by ashahbaz         ###   ########.fr        #
+#    Updated: 2025/05/10 14:48:02 by ashahbaz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 
 RM = rm -f
 
-CFLAGS = -Wall -Werror -Wextra -g3 -I.  -Imlx #-g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -I.  -Imlx #-g3 -fsanitize=address
 
 SRCS =  main.c \
 		error.c \
@@ -26,6 +26,7 @@ SRCS =  main.c \
 		utils_1.c \
 		utils_2.c \
 		utils_3.c \
+		utils_4.c \
 		get_colour.c \
 		map_parsing.c \
 		init_window.c \

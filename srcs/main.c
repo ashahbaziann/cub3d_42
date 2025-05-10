@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:50:42 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/30 18:18:53 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:58:17 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	the_game(t_game *game, int fd)
 	validate_textures(game);
 	map_parsing(game);
 	if (game->player.count > 1 || game->player.count == 0)
-		clean(game, NULL, "More than one or absolute no player!\n");
+		clean(game, NULL, "Validation failed: no player or more than one!\n");
 	init_window(game);
 	init_image(game);
 	load_textures(game);

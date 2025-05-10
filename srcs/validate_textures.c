@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:26:31 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/30 18:12:53 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:56:37 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	open_file(t_game *game, char *dir)
 	if (fd == -1)
 	{
 		close(fd);
-		clean(game, NULL, "Invalid textures\n");
+		clean(game, NULL, "Validation failed: Invalid textures\n");
 	}
 	close(fd);
 }
@@ -31,48 +31,51 @@ static void	get_value(t_game *game, char **dir, char *line, t_direction type)
 
 	arr = NULL;
 	if (count_words(line, ' ') != 2)
-		clean(game, NULL, "Invalid arguments for textures\n");
+		clean(game, NULL, "Validation failed: invalid texture arguments\n");
 	arr = split(line, ' ');
 	if (arr[0] && !ft_strcmp(arr[0], get_direction(type)))
 		*dir = ft_strdup(arr[1]);
 	else
-		clean(game, NULL, "Invalid arguments for textures\n");
-	map_free(arr);
-	if (type == F || type == C)
-		get_colour(game, dir, type);
-	else
-		open_file(game, *dir);
-}
-
-static int	empty_map(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	if (game->map)
 	{
-		while (game->map[i])
-		{
-			if (!line_is_empty(game->map[i]))
-				return (0);
-			i++;
-		}
+		map_free(arr);
+		clean(game, NULL, "Validation failed:  Invalid texture arguments\n");
 	}
-	return (1);
+	map_free(arr);
+	open_file(game, *dir);
 }
 
 static void	set_map(t_game *game, int i)
 {
 	if (!textures_all_set(game))
-		clean(game, NULL, "Map is not set");
+		clean(game, NULL, "Validation failed: map is not set\n");
 	game->map = &game->file[i];
+	row_last_char(game, game->map);
 	fill_file(game->map);
 	if (empty_map(game))
-		clean(game, NULL, "Map is not set");
+		clean(game, NULL, "Validation failed: map is not set\n");
 	game->width = width(game->map);
 	game->height = height(game->map);
 	game->img.width = game->width;
 	game->img.height = game->height;
+	col_last_char(game);
+}
+
+static void	set_textures(t_game *game, char *line)
+{
+	if (ft_strnstr(line, "NO", ft_strlen(line)))
+		get_value(game, &game->north.path, line, NO);
+	else if (ft_strnstr(line, "SO", ft_strlen(line)))
+		get_value(game, &game->south.path, line, SO);
+	else if (ft_strnstr(line, "EA", ft_strlen(line)))
+		get_value(game, &game->east.path, line, EA);
+	else if (ft_strnstr(line, "WE", ft_strlen(line)))
+		get_value(game, &game->west.path, line, WE);
+	else if (ft_strnstr(line, "F", ft_strlen(line)))
+		get_colour(game, &game->floor, line, F);
+	else if (ft_strnstr(line, "C", ft_strlen(line)))
+		get_colour(game, &game->ceiling, line, C);
+	else
+		clean(game, NULL, "Validation failed: invalid characters\n");
 }
 
 void	validate_textures(t_game *game)
@@ -86,18 +89,7 @@ void	validate_textures(t_game *game)
 	{
 		if (textures_all_set(game))
 			break ;
-		if (ft_strnstr(file[i], "NO", ft_strlen(file[i])))
-			get_value(game, &game->north.path, file[i], NO);
-		if (ft_strnstr(file[i], "SO", ft_strlen(file[i])))
-			get_value(game, &game->south.path, file[i], SO);
-		if (ft_strnstr(file[i], "EA", ft_strlen(file[i])))
-			get_value(game, &game->east.path, file[i], EA);
-		if (ft_strnstr(file[i], "WE", ft_strlen(file[i])))
-			get_value(game, &game->west.path, file[i], WE);
-		if (ft_strnstr(file[i], "F", ft_strlen(file[i])))
-			get_value(game, &game->floor, file[i], F);
-		if (ft_strnstr(file[i], "C", ft_strlen(file[i])))
-			get_value(game, &game->ceiling, file[i], C);
+		set_textures(game, file[i]);
 		i++;
 	}
 	set_map(game, i);

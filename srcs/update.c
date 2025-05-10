@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 17:05:39 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/31 16:24:48 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:31:59 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void	move_player(t_game *game, double dir_x, double dir_y)
 		return ;
 	if (game->move_flag == 1)
 	{
-		if (game->map[(int)n_x][(int)n_y] != '1')
+		if (game->map[(int)n_y][(int)n_x] != '1')
 			game->player.x += dir_x;
-		if (game->map[(int)n_x][(int)n_y] != '1')
+		if (game->map[(int)n_y][(int)n_x] != '1')
 			game->player.y += dir_y;
 		game->move_flag = 0;
 	}

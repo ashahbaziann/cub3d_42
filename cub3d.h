@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/31 16:10:57 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/10 14:50:23 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define SPRITE 32
 # define FOV	60
 # define NUM_RAYS 120
-# define S_W 2000
-# define S_H 1600
+# define S_W 1900
+# define S_H 1500
 # define W 119
 # define A 97
 # define S 115
@@ -172,6 +172,11 @@ int		is_player(char c);
 void	ft_strcpy(char *dest, char *src, int len);
 t_image	*get_dir(t_game *game, t_ray *ray);
 
+//utils_4
+void	row_last_char(t_game *game, char **map);
+void	col_last_char(t_game *game);
+int		empty_map(t_game *game);
+
 //validate_args
 int		validate_args(int argc, char **argv);
 
@@ -193,7 +198,7 @@ void	map_parsing(t_game *game);
 void	validate_textures(t_game *game);
 
 //get_colour
-void	get_colour(t_game *game, char **dir, t_direction type);
+void	get_colour(t_game *game, char **dir, char *line, t_direction type);
 
 //init_window
 void	init_window(t_game *game);

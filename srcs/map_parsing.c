@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:23:24 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/31 16:10:28 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:22:42 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,22 @@ static void	set_player(t_game *game, int i, int j)
 	}
 }
 
+static void	wall_parse(t_game *game, int i, int j)
+{
+	if (!is_valid_char(game->map[i][j]))
+		clean(game, NULL, "Invalid character");
+	set_player(game, i, j);
+	if (game->map[i][j] != '1' && game->map[i][j]
+		&& !is_whitespace(game->map[i][j]))
+	{
+		if (i == 0 || j == 0 || i == game->height - 1
+			|| j == game->width - 1)
+			clean(game, NULL, "Missing walls!\n");
+	}
+	else if (game->map[i][j] == ' ')
+		check_space_interval(game, i, j);
+}
+
 void	map_parsing(t_game *game)
 {
 	int	i;
@@ -72,17 +88,7 @@ void	map_parsing(t_game *game)
 		j = 0;
 		while (game->map[i][j])
 		{
-			if (!is_valid_char(game->map[i][j]))
-				clean(game, NULL, "Invalid character");
-			set_player(game, i, j);
-			if (game->map[i][j] == '0')
-			{
-				if (i == 0 || j == 0 || i == game->height - 1
-					|| j == game->width - 1)
-					clean(game, NULL, "Missing walls!\n");
-			}
-			else if (game->map[i][j] == ' ')
-				check_space_interval(game, i, j);
+			wall_parse(game, i, j);
 			j++;
 		}
 		i++;

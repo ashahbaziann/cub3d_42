@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:51:28 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/30 17:28:26 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:47:30 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ static int	only_digits(char *colour)
 	i = 0;
 	while (colour[i])
 	{
-		if (colour[i] < 48 || colour[i] > 57)
+		while (colour[i] == ' ')
+			i++;
+		if (!colour[i])
+			break ;
+		if (colour[i] && (colour[i] < 48 || colour[i] > 57))
 			return (0);
 		i++;
 	}
@@ -41,7 +45,7 @@ static void	check_rgb(char **rgb, t_game *game)
 		clean(game, NULL, "Invlaid rgb values\n");
 }
 
-void	get_colour(t_game *game, char **dir, t_direction type)
+static void	get_rgb(t_game *game, char **dir, t_direction type)
 {
 	char	**rgb;
 	int		r;
@@ -49,6 +53,8 @@ void	get_colour(t_game *game, char **dir, t_direction type)
 	int		b;
 
 	rgb = split(*dir, ',');
+	if (count_words(*dir, ',') != 3)
+		clean(game, NULL, "Invalid arguments for textures\n");
 	check_rgb(rgb, game);
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
@@ -60,4 +66,21 @@ void	get_colour(t_game *game, char **dir, t_direction type)
 		game -> floor_colour = r * 65536 + g * 256 + b;
 	if (type == C)
 		game -> ceiling_colour = r * 65536 + g * 256 + b;
+}
+
+void	get_colour(t_game *game, char **dir, char *line, t_direction type)
+{
+	if (line)
+	{
+		while (*line == ' ')
+			line++;
+		if (!ft_strncmp(line, get_direction(type), 1))
+		{
+			line++;
+			while (*line == ' ')
+				line++;
+			*dir = ft_strdup(line);
+			get_rgb(game, dir, type);
+		}
+	}
 }
