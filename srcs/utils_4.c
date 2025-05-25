@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 16:21:17 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/05/10 14:49:46 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/25 17:31:47 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,20 @@ void	col_last_char(t_game *game)
 		}
 		i++;
 	}
+}
+
+int	check_semicol(char *line)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (line[i])
+	{
+		if (line[i] == ',')
+			count++;
+		i++;
+	}
+	return (count);
 }

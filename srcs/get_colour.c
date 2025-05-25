@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:51:28 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/05/08 14:47:30 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/25 18:51:35 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,24 @@ static int	only_digits(char *colour)
 	int	i;
 
 	i = 0;
+	while (colour[i] == ' ')
+		i++;
 	while (colour[i])
 	{
-		while (colour[i] == ' ')
-			i++;
+		if (colour[i] && (colour[i] < '0' || colour[i] > '9'))
+		{
+			if (colour[i] && is_whitespace(colour[i]))
+			{
+				while (colour[i] && is_whitespace(colour[i]))
+					i++;
+				if (colour[i] != '\0')
+					return (0);
+			}
+			if (colour[i] && (colour[i] < 48 || colour[i] > 57))
+				return (0);
+		}
 		if (!colour[i])
-			break ;
-		if (colour[i] && (colour[i] < 48 || colour[i] > 57))
-			return (0);
+			return (1);
 		i++;
 	}
 	return (1);
@@ -38,11 +48,17 @@ static void	check_rgb(char **rgb, t_game *game)
 	while (rgb[i])
 	{
 		if (rgb[i] && !only_digits(rgb[i]))
-			clean(game, NULL, "Invlaid rgb values\n");
+		{
+			map_free(rgb);
+			clean(game, NULL, "Invalid rgb values\n");
+		}
 		i++;
 	}
 	if (i != 3)
-		clean(game, NULL, "Invlaid rgb values\n");
+	{
+		map_free(rgb);
+		clean(game, NULL, "Invalid rgb values\n");
+	}
 }
 
 static void	get_rgb(t_game *game, char **dir, t_direction type)
@@ -53,8 +69,11 @@ static void	get_rgb(t_game *game, char **dir, t_direction type)
 	int		b;
 
 	rgb = split(*dir, ',');
-	if (count_words(*dir, ',') != 3)
+	if (check_semicol(*dir) != 2)
+	{
+		map_free(rgb);
 		clean(game, NULL, "Invalid arguments for textures\n");
+	}
 	check_rgb(rgb, game);
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);

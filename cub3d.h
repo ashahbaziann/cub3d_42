@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:02:19 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/05/10 14:50:23 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/25 16:42:41 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ t_image	*get_dir(t_game *game, t_ray *ray);
 void	row_last_char(t_game *game, char **map);
 void	col_last_char(t_game *game);
 int		empty_map(t_game *game);
+int		check_semicol(char *line);
 
 //validate_args
 int		validate_args(int argc, char **argv);

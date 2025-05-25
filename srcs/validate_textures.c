@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:26:31 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/05/10 14:56:37 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/25 16:00:13 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	get_value(t_game *game, char **dir, char *line, t_direction type)
 	if (count_words(line, ' ') != 2)
 		clean(game, NULL, "Validation failed: invalid texture arguments\n");
 	arr = split(line, ' ');
-	if (arr[0] && !ft_strcmp(arr[0], get_direction(type)))
+	if (!*dir && arr[0] && !ft_strcmp(arr[0], get_direction(type)))
 		*dir = ft_strdup(arr[1]);
 	else
 	{

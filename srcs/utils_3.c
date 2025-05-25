@@ -6,7 +6,7 @@
 /*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:49:43 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/30 17:58:02 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/25 15:28:45 by ashahbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ t_image	*get_dir(t_game *game, t_ray *ray)
 	if (ray->side == 0)
 	{
 		if (ray->dir_x > 0)
-			img = &game->east.image;
-		else
 			img = &game->west.image;
+		else
+			img = &game->east.image;
 	}
 	else
 	{
