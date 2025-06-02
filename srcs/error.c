@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 15:52:17 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/03/30 18:52:01 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/31 17:00:04 by gmelikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	error(char *str, char *str2)
 {
 	if (!str)
 		exit(0);
+	write(STDERR_FILENO, "Error\n", 6);
 	while (*str)
 		write(STDERR_FILENO, str++, 1);
 	if (str2)

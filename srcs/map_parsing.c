@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ashahbaz <ashahbaz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gmelikya <gmelikya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:23:24 by ashahbaz          #+#    #+#             */
-/*   Updated: 2025/05/08 18:22:42 by ashahbaz         ###   ########.fr       */
+/*   Updated: 2025/05/31 16:45:51 by gmelikya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static void	set_player(t_game *game, int i, int j)
 		else if (game->map[i][j] == 'S')
 			game->player.angle = M_PI / 2;
 		else if (game->map[i][j] == 'W')
-			game->player.angle = 0;
-		else if (game->map[i][j] == 'E')
 			game->player.angle = M_PI;
+		else if (game->map[i][j] == 'E')
+			game->player.angle = 0;
 		game->player.x = j + 1 / 2;
 		game->player.y = i + 1 / 2;
 		game->player.dx = cos(game->player.angle);
